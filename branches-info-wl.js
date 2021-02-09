@@ -26,5 +26,12 @@ var IntWL = {
         url: "http://wanderers-library-ko.wikidot.com/",
         id: "621849",
         "category": ""
+    },
+    "pl": {
+        name: "Polski",
+        head: "W innych językach",
+        url: "http://wanderers-library-pl.wikidot.com/",
+        id: "4593099",
+        category: ""
     }
 };
