@@ -1,107 +1,107 @@
 var Int = {
     "cn": {
-        "name": "中文",
-        "head": "其他语言",
-        "url": "http://scp-wiki-cn.wikidot.com/",
-        "id": "530812",
-        "category": ""
+        name: "中文",
+        head: "其他语言",
+        url: "http://scp-wiki-cn.wikidot.com/",
+        id: "530812",
+        category: ""
     },
     "cs": {
         name: "Česky",
         head: "V jiných jazycích",
         url: "http://scp-cs.wikidot.com/",
         id: "2060442",
-        "category": ""
+        category: ""
     },
     "en": {
-        "name": "English",
-        "head": "Languages",
-        "url": "http://www.scpwiki.com/",
-        "id": "66711",
-        "category": ""
+        name: "English",
+        head: "Languages",
+        url: "http://www.scpwiki.com/",
+        id: "66711",
+        category: ""
     },
     "fr": {
         name: "Français",
         head: "Dans d’autres langues",
         url: "http://fondationscp.wikidot.com/",
         id: "464696",
-        "category": ""
+        category: ""
     },
     "de": {
         name: "Deutsch",
         head: "In anderen Sprachen",
         url: "http://scp-wiki-de.wikidot.com/",
         id: "1269857",
-        "category": ""
+        category: ""
     },
     "int": {
         name: "International",
         head: "Languages",
         url: "http://scp-int.wikidot.com/",
         id: "1427610",
-        "category": ""
+        category: ""
     },
     "it": {
         name: "Italiano",
         head: "In altre lingue",
         url: "http://fondazionescp.wikidot.com/",
         id: "530167",
-        "category": ""
+        category: ""
     },
     "jp": {
         name: "日本語",
         head: "他言語版",
         url: "http://scp-jp.wikidot.com/",
         id: "578002",
-        "category": ""
+        category: ""
     },
     "ko": {
         name: "한국어",
         head: "다른 언어",
         url: "http://ko.scp-wiki.net/",
         id: "486864",
-        "category": ""
+        category: ""
     },
     "pl": {
         name: "Polski",
         head: "W innych językach",
         url: "http://scp-wiki.net.pl/",
         id: "647733",
-        "category": ""
+        category: ""
     },
     "ptbr": {
         name: "Português",
         head: "Em outros idiomas",
         url: "http://scp-pt-br.wikidot.com/",
         id: "783633",
-        "category": ""
+        category: ""
     },
     "ru": {
         name: "Русский",
         head: "На других языках",
         url: "http://scpfoundation.net/",
         id: "169125",
-        "category": ""
+        category: ""
     },
     "es": {
         name: "Español",
         head: "En otros idiomas",
         url: "http://scp-es.com/",
         id: "560484",
-        "category": ""
+        category: ""
     },
     "th": {
         name: "ภาษาไทย",
         head: "ภาษาอื่น",
         url: "http://scp-th.wikidot.com/",
         id: "547203",
-        "category": ""
+        category: ""
     },
     "ua": {
         name: "Українська",
         head: "Іншими мовами",
         url: "http://scp-ukrainian.wikidot.com/",
         id: "1398197",
-        "category": ""
+        category: ""
     }
 };
