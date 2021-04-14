@@ -4,7 +4,7 @@ var IntWL = {
         head: "其他语言",
         url: "http://scp-wiki-cn.wikidot.com/",
         id: "530812",
-        category: "wanderers:"
+        category: "wanderers"
     },
     "en": {
         name: "English",
@@ -18,7 +18,7 @@ var IntWL = {
         head: "他言語版",
         url: "http://scp-jp.wikidot.com/",
         id: "578002",
-        category: "wanderers:"
+        category: "wanderers"
     },
     "ko": {
         name: "한국어",
