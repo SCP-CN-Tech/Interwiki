@@ -16,7 +16,7 @@ var Int = {
     "en": {
         name: "English",
         head: "Languages",
-        url: "https://www.scpwiki.com/",
+        url: "https://scp-wiki.wikidot.com/",
         id: "66711",
         category: ""
     },
