@@ -133,6 +133,18 @@ body {
 	font-variant-ligatures: none;
 }
 
+/* Selection color */
+
+::-moz-selection {
+	background: rgba(var(--swatch-primary, 180, 35, 35), 0.25);
+	text-shadow: none;
+}
+
+::selection {
+	background: rgba(var(--swatch-primary, 180, 35, 35), 0.25);
+	text-shadow: none;
+}
+
 body {
 	font-family: var(--body-font);
 	overflow: hidden;
