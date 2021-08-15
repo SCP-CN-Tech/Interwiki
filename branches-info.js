@@ -105,3 +105,20 @@ var Int = {
         category: ""
     }
 };
+
+function bhlDark() {
+    var bhlDarkStyle = document.createElement("style");
+    bhlDarkStyle.setAttribute("type", "text/css");
+    bhlDarkStyle.innerHTML = "@import url(https://cdn.jsdelivr.net/gh/scp-cn-tech/interwiki@cn/style-bhl-dark.css);";
+    document.getElementsByTagName("head")[0].insertBefore(bhlDarkStyle, document.getElementById("custom-style"));
+}
+
+function bhlDarkCheck() {
+    try {
+        if (window.parent.window.BHLDarkFrame) {
+            bhlDark();
+        }
+    } catch(e) {}
+}
+
+bhlDarkCheck();
