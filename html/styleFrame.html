@@ -1,0 +1,16 @@
+<html>
+<head>
+</head>
+<body>
+<script type="text/javascript">
+var str = decodeURIComponent(window.location.search.substr(1));
+var mode = window.class == "customStyleFrame";
+function sendStyle() {
+    try {
+        window.parent.window.interwikiFrame.changeStyle(str, mode);
+    } catch(e) {}
+}
+sendStyle();
+</script>
+</body>
+</html>
