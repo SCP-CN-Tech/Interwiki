@@ -1,0 +1,204 @@
+<html>
+<head>
+<style type="text/css" id="internal-style">
+</style>
+<style type="text/css" id="custom-style">
+</style>
+
+<!-- Branches' info -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/js/branches-info.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/js/branches-info-wl.js"></script>
+
+<!-- PageLookupQModule -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/js/getWikiModule.js"></script>
+
+<!-- C-take's resizing iframe method -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/js/createResizeIframe.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+
+
+<body>
+<div class="side-block" style="display:none"><div class="heading"></div></div>
+
+
+<script type="text/javascript">
+var getQueryString = (name) => {
+    var r = document.location.search.substr(1).split("&");
+    var Reg = new RegExp("^" + name + "=([^&]*)$", "i");
+    for (var i = 0; i < r.length; i++) {
+        if (r[i].search(Reg) > -1) {
+            r[i] = unescape(r[i].match(Reg)[1]);
+        } else {
+            r.splice(i, 1);
+            i--;
+        }
+    }
+    if (r.length > 0) {
+        return r[0];
+    } else {
+        return "";
+    }
+}
+
+var pageCategory = getQueryString("category");
+var IntData = pageCategory == "wanderers" || pageCategory == "wanderers-adult" ? IntWL : Int;
+var IntKeys = Object.keys(IntData);
+
+var sideBlock = document.getElementsByClassName("side-block")[0],
+    heading = document.getElementsByClassName("heading")[0],
+    inStyle = document.getElementById("internal-style"),
+    cuStyle = document.getElementById("custom-style");
+var siteNum = IntKeys.length;
+var siteLang = "en";
+var siteData = IntData[siteLang];
+var siteID = siteData ? siteData["id"] : false;
+var pagename = getQueryString("pagename").split("_default:").join("").split(siteData["category"]).join("");
+var shorten = false;
+var styleType = getQueryString("style");
+var styleCheck = true;
+var styleAry = [];
+if (59 <= (siteData["category"] + pagename).length) {
+    shorten = true;
+}
+if (styleType == "") {
+    styleType = pageCategory == "wanderers" || pageCategory == "wanderers-adult" ? "wanderers" : "default";
+}
+
+function switchStyleType() {
+    switch (styleType) {
+        case "wanderers":
+            inStyle.innerHTML = "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-wl.css);";
+        break;
+        case "bhl":
+            inStyle.innerHTML = "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-bhl.css);";
+        break;
+        case "404":
+            inStyle.innerHTML = "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-404.css);";
+            if (pageCategory == "wanderers" || pageCategory == "wanderers-adult") cuStyle.innerHTML = ".side-block div.menu-item a {color: #059400}";
+        break;
+        default:
+            inStyle.innerHTML = "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style.css);";
+    }
+}
+
+function changeStyle(str, mode = false) {
+    var typeAry = ["bhl", "wanderers", "default", "404"];
+    if (typeAry.indexOf(str) > -1) {
+        if (styleType != str) {
+            styleType = str;
+            switchStyleType();
+        }
+    } else if (styleAry.indexOf(str) == -1) {
+        styleAry.push(str);
+        if (mode) {
+            cuStyle.innerHTML += str;
+        } else {
+            cuStyle.innerHTML = str + cuStyle.innerHTML;
+        }
+    }
+}
+
+function changeStyleCheck() {
+    try {
+        changeStyle(decodeURIComponent(window.parent.window.typeFrame.location.search.substr(1)));
+    } catch(e) {}
+    try {
+        changeStyle(decodeURIComponent(window.parent.window.styleFrame.location.search.substr(1)));
+    } catch(e) {}
+    try {
+        changeStyle(decodeURIComponent(window.parent.window.customStyleFrame.location.search.substr(1)), true);
+    } catch(e) {}
+}
+
+function createItem(a, b, c) {
+    var itemsAry = sideBlock.getElementsByClassName("menu-item");
+    var item = document.createElement("div");
+    var idx = (v) => IntKeys.indexOf(v);
+    item.classList.add("menu-item");
+    item.setAttribute("name", c);
+    item.innerHTML = '<img src="//scp-wiki.wdfiles.com/local--files/nav:side/default.png" alt="default.png" class="image" /><a href="' + a + '" target="_parent">' + b + '</a>';
+    if (itemsAry.length == 0 || idx(itemsAry[itemsAry.length - 1].getAttribute("name")) <= idx(c)) {
+        sideBlock.appendChild(item);
+    } else {
+        for (var i = 0; i < itemsAry.length; i++) {
+            if (idx(c) < idx(itemsAry[i].getAttribute("name")) && (i == 0 || idx(itemsAry[i - 1].getAttribute("name")) <= idx(c))) {
+                sideBlock.insertBefore(item, itemsAry[i]);
+                break;
+            }
+        }
+    }
+}
+
+function getData(a, b, c, d, e, async) {
+    getWikiModule({
+        site_id: c,
+        query: d,
+        function: (res) => {
+            var check = false;
+            for (var i = 0; i < res.length; i++) {
+                 if (res[i].unix_name == d) {
+                     check = true;
+                     createItem(a + d, b, e);
+                 }
+                 else if (res[i].unix_name.match(new RegExp("^" + d)) && shorten) {
+                     check = true;
+                     createItem(a + res[i].unix_name, b, e);
+                 }
+            }
+            if (check) {
+                sideBlock.removeAttribute("style");
+            }
+            siteNum--;
+            if ((styleCheck && check) || siteNum <= 0) {
+                styleCheck = false;
+                changeStyleCheck();
+            }
+        }
+    });
+}
+
+function getDataAll() {
+    var a = new Date(),
+    af = (v) => v < 10 ? "0" + v : v,
+    ay = a.getFullYear(),
+    amo = af(a.getMonth() + 1),
+    ad = af(a.getDate()),
+    ah = af(a.getHours()),
+    ami = af(a.getMinutes()),
+    as = af(a.getSeconds()),
+    time = ay + "/" + amo + "/" + ad + " " + ah + ":" + ami + ":" + as;
+    heading.innerHTML = '<p><a onclick="window.location.reload(true);" title="Click Refresh ' + "(Last Refresh：" + time + ')">' + siteData["head"] + '</a></p>';
+    for (var i = 0; i < IntKeys.length; i++) {
+        var obj = IntData[IntKeys[i]];
+        if (siteID !== obj["id"]) {
+            getData(obj["url"], obj["name"], obj["id"], obj["category"] + pagename, IntKeys[i], true);
+        } else {
+            siteNum--;
+        }
+    }
+}
+
+function bhlDark() {
+    var bhlDarkStyle = document.createElement("style");
+    bhlDarkStyle.setAttribute("type", "text/css");
+    bhlDarkStyle.innerHTML = "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-bhl-dark.css);";
+    document.getElementsByTagName("head")[0].insertBefore(bhlDarkStyle, document.getElementById("custom-style"));
+}
+
+function bhlDarkCheck() {
+    try {
+        if (window.parent.window.BHLDarkFrame) {
+            bhlDark();
+        }
+    } catch(e) {}
+}
+
+bhlDarkCheck();
+switchStyleType();
+changeStyleCheck();
+getDataAll();
+</script>
+<div id="iframeset"></div>
+</body>
+</html>

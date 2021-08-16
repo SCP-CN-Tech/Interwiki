@@ -103,22 +103,12 @@ var Int = {
         url: "https://scp-ukrainian.wikidot.com/",
         id: "1398197",
         category: ""
-    }
+    },
+	"zh-tr": {
+		name: "繁體中文",
+		head: "其他語言",
+		url: "https://scp-zh-tr.wikidot.com/",
+		id: "3947998",
+		"category": ""
+	}
 };
-
-function bhlDark() {
-    var bhlDarkStyle = document.createElement("style");
-    bhlDarkStyle.setAttribute("type", "text/css");
-    bhlDarkStyle.innerHTML = "@import url(https://cdn.jsdelivr.net/gh/scp-cn-tech/interwiki@cn/style-bhl-dark.css);";
-    document.getElementsByTagName("head")[0].insertBefore(bhlDarkStyle, document.getElementById("custom-style"));
-}
-
-function bhlDarkCheck() {
-    try {
-        if (window.parent.window.BHLDarkFrame) {
-            bhlDark();
-        }
-    } catch(e) {}
-}
-
-bhlDarkCheck();
