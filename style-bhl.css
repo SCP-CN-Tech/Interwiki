@@ -42,14 +42,30 @@
 /* ===STANDARD THEME COLORS=== */
 	/* white */
 	--white-monochrome: 252, 252, 252;
+	/* v light gray for blockquotes and stuff */
+	--pale-gray-monochrome: 244, 244, 244;
+	/* very light pale gray for misc. use */
+	--light-pale-gray-monochrome: 244, 244, 244;
+	/* very light accent gray for misc. use */
+	--very-light-gray-monochrome: 215, 215, 215;
+	/* light accent gray for login status */
+	--light-gray-monochrome: 160, 160, 160;
+	/* gray */
+	--gray-monochrome: 66, 66, 72;
+	/* dark accent gray for sidebar background */
+	--dark-gray-monochrome: 48, 48, 52;
 	/* black */
 	--black-monochrome: 12, 12, 12;
+	/* subdued theme color, for visited links */
+	--pale-accent: 170, 0, 5;
 	/* vivid theme color, the "default" accent color */
 	--bright-accent: 133, 0, 5;
 	/* theme color */
 	--medium-accent: 100, 46, 44;
 	/* darker theme color */
 	--dark-accent: 100, 3, 15;
+	/* alternate accent color, for newpage links */
+	--alt-accent: 221, 102, 17;
 
 /* ===PRIMARY COLORS=== */
 	/* ===GENERAL COLORS=== */
@@ -67,6 +83,7 @@
 /* ===SECONDARY & TERTIARY COLORS=== */
 	/* Text Colors for Secondary & Tertiary items like Sidebar Headers and Top-Bar Menu Text */
 	--swatch-text-secondary-color: var(--swatch-menutxt-light-color);
+	--swatch-text-tertiary-color: var(--swatch-menutxt-dark-color);
 
 /* ===STRUCTURAL SPACING ELEMENTS=== */
 	/* ===SIDEBAR MEASUREMENTS=== */
@@ -96,6 +113,7 @@
 			"FLAR" var(--FLAR, 0);
 	}
 }
+add redundant vars
 
 @supports (font-feature-settings: inherit) {
 	* {
