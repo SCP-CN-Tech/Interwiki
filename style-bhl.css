@@ -113,7 +113,6 @@
 			"FLAR" var(--FLAR, 0);
 	}
 }
-add redundant vars
 
 @supports (font-feature-settings: inherit) {
 	* {
