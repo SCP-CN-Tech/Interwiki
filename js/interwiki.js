@@ -32,21 +32,21 @@ function switchStyleType() {
   switch (styleType) {
     case "wanderers":
       inStyle.innerHTML =
-        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-wl.css);";
+        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style-wl.css);";
       break;
     case "bhl":
       inStyle.innerHTML =
-        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-bhl.css);";
+        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style-bhl.css);";
       break;
     case "404":
       inStyle.innerHTML =
-        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-404.css);";
+        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style-404.css);";
       if (pageCategory == "wanderers" || pageCategory == "wanderers-adult")
         cuStyle.innerHTML = ".side-block div.menu-item a {color: #059400}";
       break;
     default:
       inStyle.innerHTML =
-        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style.css);";
+        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style.css);";
   }
 }
 
@@ -227,7 +227,7 @@ function bhlDark() {
   var bhlDarkStyle = document.createElement("style");
   bhlDarkStyle.setAttribute("type", "text/css");
   bhlDarkStyle.innerHTML =
-    "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-bhl-dark.css);";
+    "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style-bhl-dark.css);";
   document
     .getElementsByTagName("head")[0]
     .insertBefore(bhlDarkStyle, document.getElementById("custom-style"));
