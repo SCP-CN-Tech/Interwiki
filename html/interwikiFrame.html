@@ -67,207 +67,38 @@
       // Get the Wikidot ID of the current branch
       // TODO When could this fail? Why fallback to false?
       var siteID = siteData ? siteData["id"] : false;
+
+      // Get the page name without category
       var pagename = getQueryString("pagename")
-        .split("_default:")
-        .join("")
-        .split(siteData["category"])
-        .join("");
+        .replace(/^_default:/, "")
+        .replace(new RegExp("^" + siteData["category"]), "");
+      // TODO siteData["category"] doesn't have a trailing colon?
+
+      // TODO What is this?
       var shorten = false;
+
+      // TODO What is this?
       var styleType = getQueryString("style");
+
+      // TODO What is this?
       var styleCheck = true;
+
+      // TODO What is this?
       var styleAry = [];
+
+      // TODO What is this, what is it doing, why is it necessary?
       if (59 <= (siteData["category"] + pagename).length) {
         shorten = true;
       }
+
+      // TODO What is happening here?
+      // TODO This is the same check that was made for scpBranches vs
+      // wlBranches, perhaps they can be consolidated?
       if (styleType == "") {
         styleType =
           pageCategory == "wanderers" || pageCategory == "wanderers-adult"
             ? "wanderers"
             : "default";
-      }
-
-      function switchStyleType() {
-        switch (styleType) {
-          case "wanderers":
-            inStyle.innerHTML =
-              "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-wl.css);";
-            break;
-          case "bhl":
-            inStyle.innerHTML =
-              "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-bhl.css);";
-            break;
-          case "404":
-            inStyle.innerHTML =
-              "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-404.css);";
-            if (
-              pageCategory == "wanderers" ||
-              pageCategory == "wanderers-adult"
-            )
-              cuStyle.innerHTML =
-                ".side-block div.menu-item a {color: #059400}";
-            break;
-          default:
-            inStyle.innerHTML =
-              "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style.css);";
-        }
-      }
-
-      function changeStyle(str, mode) {
-        if (mode == null) mode = false;
-        var typeAry = ["bhl", "wanderers", "default", "404"];
-        if (typeAry.indexOf(str) > -1) {
-          if (styleType != str) {
-            styleType = str;
-            switchStyleType();
-          }
-        } else if (styleAry.indexOf(str) == -1) {
-          styleAry.push(str);
-          if (mode) {
-            cuStyle.innerHTML += str;
-          } else {
-            cuStyle.innerHTML = str + cuStyle.innerHTML;
-          }
-        }
-      }
-
-      function changeStyleCheck() {
-        try {
-          changeStyle(
-            decodeURIComponent(
-              window.parent.window.typeFrame.location.search.substr(1)
-            )
-          );
-        } catch (e) {}
-        try {
-          changeStyle(
-            decodeURIComponent(
-              window.parent.window.styleFrame.location.search.substr(1)
-            )
-          );
-        } catch (e) {}
-        try {
-          changeStyle(
-            decodeURIComponent(
-              window.parent.window.customStyleFrame.location.search.substr(1)
-            ),
-            true
-          );
-        } catch (e) {}
-      }
-
-      function createItem(a, b, c) {
-        var itemsAry = sideBlock.getElementsByClassName("menu-item");
-        var item = document.createElement("div");
-        var idx = function (v) {
-          branchIds.indexOf(v);
-        };
-        item.classList.add("menu-item");
-        item.setAttribute("name", c);
-        item.innerHTML =
-          '<img src="//scp-wiki.wdfiles.com/local--files/nav:side/default.png" alt="default.png" class="image" /><a href="' +
-          a +
-          '" target="_parent">' +
-          b +
-          "</a>";
-        if (
-          itemsAry.length == 0 ||
-          idx(itemsAry[itemsAry.length - 1].getAttribute("name")) <= idx(c)
-        ) {
-          sideBlock.appendChild(item);
-        } else {
-          for (var i = 0; i < itemsAry.length; i++) {
-            if (
-              idx(c) < idx(itemsAry[i].getAttribute("name")) &&
-              (i == 0 || idx(itemsAry[i - 1].getAttribute("name")) <= idx(c))
-            ) {
-              sideBlock.insertBefore(item, itemsAry[i]);
-              break;
-            }
-          }
-        }
-      }
-
-      function getData(a, b, c, d, e, async) {
-        getWikiModule({
-          site_id: c,
-          query: d,
-          function: function (res) {
-            var check = false;
-            for (var i = 0; i < res.length; i++) {
-              if (res[i].unix_name == d) {
-                check = true;
-                createItem(a + d, b, e);
-              } else if (
-                res[i].unix_name.match(new RegExp("^" + d)) &&
-                shorten
-              ) {
-                check = true;
-                createItem(a + res[i].unix_name, b, e);
-              }
-            }
-            if (check) {
-              sideBlock.removeAttribute("style");
-            }
-            siteNum--;
-            if ((styleCheck && check) || siteNum <= 0) {
-              styleCheck = false;
-              changeStyleCheck();
-            }
-          },
-        });
-      }
-
-      function getDataAll() {
-        var a = new Date(),
-          af = function (v) {
-            v < 10 ? "0" + v : v;
-          },
-          ay = a.getFullYear(),
-          amo = af(a.getMonth() + 1),
-          ad = af(a.getDate()),
-          ah = af(a.getHours()),
-          ami = af(a.getMinutes()),
-          as = af(a.getSeconds()),
-          time = ay + "/" + amo + "/" + ad + " " + ah + ":" + ami + ":" + as;
-        heading.innerHTML =
-          '<p><a onclick="window.location.reload(true);" title="Click Refresh ' +
-          "(Last Refresh：" +
-          time +
-          ')">' +
-          siteData["head"] +
-          "</a></p>";
-        for (var i = 0; i < branchIds.length; i++) {
-          var obj = branches[branchIds[i]];
-          if (siteID !== obj["id"]) {
-            getData(
-              obj["url"],
-              obj["name"],
-              obj["id"],
-              obj["category"] + pagename, // TODO Fullname - needs colon?
-              branchIds[i]
-            );
-          } else {
-            siteNum--;
-          }
-        }
-      }
-
-      function bhlDark() {
-        var bhlDarkStyle = document.createElement("style");
-        bhlDarkStyle.setAttribute("type", "text/css");
-        bhlDarkStyle.innerHTML =
-          "@import url(https://cdn.jsdelivr.net/gh/scpwiki/Interwiki@main/css/style-bhl-dark.css);";
-        document
-          .getElementsByTagName("head")[0]
-          .insertBefore(bhlDarkStyle, document.getElementById("custom-style"));
-      }
-
-      function bhlDarkCheck() {
-        try {
-          if (window.parent.window.BHLDarkFrame) {
-            bhlDark();
-          }
-        } catch (e) {}
       }
 
       bhlDarkCheck();
