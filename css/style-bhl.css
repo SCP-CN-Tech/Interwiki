@@ -1,76 +1,76 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 :root {
-/* ===TYPEFACES=== */
-	--body-font: Inter, "Noto Sans SC", Verdana, "Microsoft YaHei", "微软雅黑",
-		Geneva, sans-serif, STXihei, "华文细黑";
-	--UI-font: PTRootUI, "方体", "PingFang SC", "黑体", "Heiti SC",
-		"Microsoft JhengHei UI", "Microsoft JhengHei", Roboto, Noto,
-		"Noto Sans CJK SC", sans-serif;
-	--title-font: var(--body-font);
+  /* ===TYPEFACES=== */
+  --body-font: Inter, "Noto Sans SC", Verdana, "Microsoft YaHei", "微软雅黑",
+    Geneva, sans-serif, STXihei, "华文细黑";
+  --UI-font: PTRootUI, "方体", "PingFang SC", "黑体", "Heiti SC",
+    "Microsoft JhengHei UI", "Microsoft JhengHei", Roboto, Noto,
+    "Noto Sans CJK SC", sans-serif;
+  --title-font: var(--body-font);
 
-	/* ===BASE FONT SIZE & LINE HEIGHT=== */
-	--min-font-size: 0.8125rem; /* 13px */
-	--max-font-size: 0.9375rem; /* 15px */
-	--base-font-size: var(--max-font-size);
+  /* ===BASE FONT SIZE & LINE HEIGHT=== */
+  --min-font-size: 0.8125rem; /* 13px */
+  --max-font-size: 0.9375rem; /* 15px */
+  --base-font-size: var(--max-font-size);
 
-/* ===VARIABLE FONT SETTINGS=== */
-	--ui-wght: 500;
-	--ui-hvr-wght: 500;
-	--ital: 0;
-	--slnt: 0;
-	--CASL: 0;
-	--CRSV: 0;
-	--MONO: 1;
-	--lnum: 1;
-	--pnum: 1;
-	--kern: 1;
-	--cpsp: 1;
-	--liga: 1;
-	--case: 1;
-	--clig: 1;
-	--dlig: 0;
-	--calt: 1;
-	--aalt: 0;
-	--ss01: 1;
-	--ss02: 0;
-	--ss03: 1;
-	--ss04: 1;
-	--zero: 1;
-	--cv11: 0;
+  /* ===VARIABLE FONT SETTINGS=== */
+  --ui-wght: 500;
+  --ui-hvr-wght: 500;
+  --ital: 0;
+  --slnt: 0;
+  --CASL: 0;
+  --CRSV: 0;
+  --MONO: 1;
+  --lnum: 1;
+  --pnum: 1;
+  --kern: 1;
+  --cpsp: 1;
+  --liga: 1;
+  --case: 1;
+  --clig: 1;
+  --dlig: 0;
+  --calt: 1;
+  --aalt: 0;
+  --ss01: 1;
+  --ss02: 0;
+  --ss03: 1;
+  --ss04: 1;
+  --zero: 1;
+  --cv11: 0;
 
-/* ===STANDARD THEME COLORS=== */
-	/* white */
-	--white-monochrome: 252, 252, 252;
-	/* black */
-	--black-monochrome: 12, 12, 12;
-	/* vivid theme color, the "default" accent color */
-	--bright-accent: 133, 0, 5;
-	/* theme color */
-	--medium-accent: 100, 46, 44;
-	/* darker theme color */
-	--dark-accent: 100, 3, 15;
+  /* ===STANDARD THEME COLORS=== */
+  /* white */
+  --white-monochrome: 252, 252, 252;
+  /* black */
+  --black-monochrome: 12, 12, 12;
+  /* vivid theme color, the "default" accent color */
+  --bright-accent: 133, 0, 5;
+  /* theme color */
+  --medium-accent: 100, 46, 44;
+  /* darker theme color */
+  --dark-accent: 100, 3, 15;
 
-/* ===PRIMARY COLORS=== */
-	/* ===GENERAL COLORS=== */
-	--swatch-primary: var(--bright-accent);
-	--swatch-primary-darker: var(--medium-accent);
-	--swatch-primary-darkest: var(--dark-accent);
-	--swatch-border-color: var(--black-monochrome);
+  /* ===PRIMARY COLORS=== */
+  /* ===GENERAL COLORS=== */
+  --swatch-primary: var(--bright-accent);
+  --swatch-primary-darker: var(--medium-accent);
+  --swatch-primary-darkest: var(--dark-accent);
+  --swatch-border-color: var(--black-monochrome);
 
-/* ===MENU COLORS=== */
-	/* ===MENU TEXT COLORS=== */
-	--swatch-menutxt-dark-color: var(--black-monochrome);
-	--swatch-menutxt-light-color: var(--white-monochrome);
-	--swatch-menutxt-general-color: var(--swatch-menutxt-dark-color);
+  /* ===MENU COLORS=== */
+  /* ===MENU TEXT COLORS=== */
+  --swatch-menutxt-dark-color: var(--black-monochrome);
+  --swatch-menutxt-light-color: var(--white-monochrome);
+  --swatch-menutxt-general-color: var(--swatch-menutxt-dark-color);
 
-/* ===SECONDARY & TERTIARY COLORS=== */
-	/* Text Colors for Secondary & Tertiary items like Sidebar Headers and Top-Bar Menu Text */
-	--swatch-text-secondary-color: var(--swatch-menutxt-light-color);
+  /* ===SECONDARY & TERTIARY COLORS=== */
+  /* Text Colors for Secondary & Tertiary items like Sidebar Headers and Top-Bar Menu Text */
+  --swatch-text-secondary-color: var(--swatch-menutxt-light-color);
 
-/* ===STRUCTURAL SPACING ELEMENTS=== */
-	/* ===SIDEBAR MEASUREMENTS=== */
-	--sidebar-internal-border-thickness: 0.125rem;
+  /* ===STRUCTURAL SPACING ELEMENTS=== */
+  /* ===SIDEBAR MEASUREMENTS=== */
+  --sidebar-internal-border-thickness: 0.125rem;
 }
 
 /* ===OPENTYPE STYLING=== */
@@ -78,185 +78,169 @@
 /* Opentype Supported Styles and Variables */
 
 * {
-	-webkit-font-kerning: auto;
-	        font-kerning: auto;
-	font-variant-ligatures: common-ligatures contextual;
-	font-variant-numeric: lining-nums proportional-nums;
-	font-weight: var(--wght, revert);
+  -webkit-font-kerning: auto;
+  font-kerning: auto;
+  font-variant-ligatures: common-ligatures contextual;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-weight: var(--wght, revert);
 }
 
 @supports (font-variation-settings: inherit) {
-	* {
-		font-variation-settings:
-			"ital" var(--ital, 0),
-			"slnt" var(--slnt, 0),
-			"CASL" var(--CASL, 0),
-			"CRSV" var(--CRSV, 0),
-			"MONO" var(--MONO, 0),
-			"FLAR" var(--FLAR, 0);
-	}
+  * {
+    font-variation-settings: "ital" var(--ital, 0), "slnt" var(--slnt, 0),
+      "CASL" var(--CASL, 0), "CRSV" var(--CRSV, 0), "MONO" var(--MONO, 0),
+      "FLAR" var(--FLAR, 0);
+  }
 }
 
 @supports (font-feature-settings: inherit) {
-	* {
-		font-feature-settings:
-			"lnum" var(--lnum, 1),
-			"pnum" var(--pnum, 1),
-			"kern" var(--kern, 1),
-			"cpsp" var(--cpsp, 1),
-			"liga" var(--liga, 1),
-			"case" var(--case, 1),
-			"clig" var(--clig, 1),
-			"dlig" var(--dlig, 0),
-			"calt" var(--calt, 1),
-			"aalt" var(--aalt, 0),
-			"ss01" var(--ss01, 1),
-			"ss02" var(--ss02, 0),
-			"ss03" var(--ss03, 1),
-			"ss04" var(--ss04, 1),
-			"zero" var(--zero, 1),
-			"cv11" var(--cv11, 0);
-	}
+  * {
+    font-feature-settings: "lnum" var(--lnum, 1), "pnum" var(--pnum, 1),
+      "kern" var(--kern, 1), "cpsp" var(--cpsp, 1), "liga" var(--liga, 1),
+      "case" var(--case, 1), "clig" var(--clig, 1), "dlig" var(--dlig, 0),
+      "calt" var(--calt, 1), "aalt" var(--aalt, 0), "ss01" var(--ss01, 1),
+      "ss02" var(--ss02, 0), "ss03" var(--ss03, 1), "ss04" var(--ss04, 1),
+      "zero" var(--zero, 1), "cv11" var(--cv11, 0);
+  }
 }
 
 /* ===HTML & BODY GLOBAL STYLING=== */
 
 html {
-	font-size: 1em;
-	line-height: var(--base-line-height);
+  font-size: 1em;
+  line-height: var(--base-line-height);
 }
 
 html,
 body {
-	margin: 0;
-	padding: 0;
-	font-variant-ligatures: none;
+  margin: 0;
+  padding: 0;
+  font-variant-ligatures: none;
 }
 
 /* Selection color */
 
 ::-moz-selection {
-	background: rgba(var(--swatch-primary, 180, 35, 35), 0.25);
-	text-shadow: none;
+  background: rgba(var(--swatch-primary, 180, 35, 35), 0.25);
+  text-shadow: none;
 }
 
 ::selection {
-	background: rgba(var(--swatch-primary, 180, 35, 35), 0.25);
-	text-shadow: none;
+  background: rgba(var(--swatch-primary, 180, 35, 35), 0.25);
+  text-shadow: none;
 }
 
 body {
-	font-family: var(--body-font);
-	overflow: hidden;
+  font-family: var(--body-font);
+  overflow: hidden;
 }
 
 /* ===SUB-BLOCK=== */
 
 .side-block {
-		/* ===SIDEBLOCK MENU=== */
-	--sideblock-bg-color: 0,0,0,0; /* Transparent */
-	--sideblock-heading-border-color: var(--swatch-primary);
-	--sideblock-heading-bg-color: 0,0,0,0; /* Transparent */
-	--sideblock-heading-text-color: var(--swatch-primary-darker);
+  /* ===SIDEBLOCK MENU=== */
+  --sideblock-bg-color: 0, 0, 0, 0; /* Transparent */
+  --sideblock-heading-border-color: var(--swatch-primary);
+  --sideblock-heading-bg-color: 0, 0, 0, 0; /* Transparent */
+  --sideblock-heading-text-color: var(--swatch-primary-darker);
 
-		/* ===MENU-ITEMS=== */
-	--sidebar-border-color: var(--swatch-border-color), 0.08;
+  /* ===MENU-ITEMS=== */
+  --sidebar-border-color: var(--swatch-border-color), 0.08;
 
-	--sidebar-links-text: var(--swatch-menutxt-general-color);
-	--sidebar-links-bg-color: 0,0,0,0; /* Transparent */
-	--sidebar-links-hover-bg-color: var(--swatch-primary);
-	--sidebar-links-hover-text-color: var(--swatch-text-secondary-color);
+  --sidebar-links-text: var(--swatch-menutxt-general-color);
+  --sidebar-links-bg-color: 0, 0, 0, 0; /* Transparent */
+  --sidebar-links-hover-bg-color: var(--swatch-primary);
+  --sidebar-links-hover-text-color: var(--swatch-text-secondary-color);
 
-	display: grid;
-	grid-template-rows: repeat(auto-fit, minmax(1.3125rem, 1fr));
-	margin: 0.5rem 0.5rem 0 0;
-	border: 0;
-	background: rgb(var(--sideblock-bg-color));
-	font-family: var(--UI-font), var(--header-font);
-	direction: ltr;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(1.3125rem, 1fr));
+  margin: 0.5rem 0.5rem 0 0;
+  border: 0;
+  background: rgb(var(--sideblock-bg-color));
+  font-family: var(--UI-font), var(--header-font);
+  direction: ltr;
 }
 
 /* ===HEADING=== */
 
 .side-block .heading {
-	display: flex;
-	align-items: flex-end;
-	justify-content: flex-start;
-	min-height: 1.5rem;
-	margin: 0;
-	background-color: rgb(var(--sideblock-heading-bg-color));
-	box-shadow: 0 0.0625rem 0 0 rgb(var(--sideblock-heading-border-color));
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  min-height: 1.5rem;
+  margin: 0;
+  background-color: rgb(var(--sideblock-heading-bg-color));
+  box-shadow: 0 0.0625rem 0 0 rgb(var(--sideblock-heading-border-color));
 }
 
 .side-block .heading p {
-	--wght: calc(var(--ui-wght) + 300);
-	margin: 0;
-	color: rgb(var(--sideblock-heading-text-color));
-	font-family: var(--title-font);
-	font-size: calc((var(--base-font-size) * (14 / 15)) * 0.9);
-	font-weight: var(--wght);
-	letter-spacing: 0.016em;
-	line-height: 1.15;
-	text-indent: 0.25rem;
-	text-transform: uppercase;
-	cursor: pointer;
+  --wght: calc(var(--ui-wght) + 300);
+  margin: 0;
+  color: rgb(var(--sideblock-heading-text-color));
+  font-family: var(--title-font);
+  font-size: calc((var(--base-font-size) * (14 / 15)) * 0.9);
+  font-weight: var(--wght);
+  letter-spacing: 0.016em;
+  line-height: 1.15;
+  text-indent: 0.25rem;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 /* ===MENU ITEMS=== */
 
 .side-block div.menu-item {
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	justify-content: flex-start;
-	height: 1.5rem;
-	min-height: 1.5rem;
-	margin: 0;
-	padding: 0;
-	box-shadow:
-		inset 0 calc(var(--sidebar-internal-border-thickness) * -1) 0 0 rgba(var(--sidebar-border-color));
-	font-size: 0;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-start;
+  height: 1.5rem;
+  min-height: 1.5rem;
+  margin: 0;
+  padding: 0;
+  box-shadow: inset 0 calc(var(--sidebar-internal-border-thickness) * -1) 0 0
+    rgba(var(--sidebar-border-color));
+  font-size: 0;
 }
 
 /* ===MAIN LINKS & TEXT=== */
 
 .side-block div.menu-item a {
-	position: relative;
-	z-index: 2;
-	overflow: hidden;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
 }
 
 .side-block div.menu-item a {
-	--wght: var(--ui-wght);
-	display: flex;
-	flex-grow: 2;
-	justify-content: flex-start;
-	height: 1.5em;
-	margin: 0;
-	padding: 0 0.6em;
-	transition:
-		background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-		color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-		font-weight 200ms cubic-bezier(0.4, 0, 0.2, 1),
-		font-variation-settings 200ms cubic-bezier(0.4, 0, 0.2, 1);
-	background-clip: padding-box;
-	background-color: rgba(var(--sidebar-links-bg-color));
-	color: rgb(var(--sidebar-links-text));
-	font-size: calc(var(--base-font-size) * (14/15));
-	font-weight: var(--wght);
-	letter-spacing: 0.04em;
-	line-height: 1.5;
-	text-decoration: none;
+  --wght: var(--ui-wght);
+  display: flex;
+  flex-grow: 2;
+  justify-content: flex-start;
+  height: 1.5em;
+  margin: 0;
+  padding: 0 0.6em;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    font-weight 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    font-variation-settings 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  background-clip: padding-box;
+  background-color: rgba(var(--sidebar-links-bg-color));
+  color: rgb(var(--sidebar-links-text));
+  font-size: calc(var(--base-font-size) * (14 / 15));
+  font-weight: var(--wght);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  text-decoration: none;
 }
 
 .side-block div.menu-item a:hover,
 .side-block div.menu-item a:active,
 .side-block div.menu-item a:focus-within {
-	--wght: var(--ui-hvr-wght);
-	background-color: rgba(var(--sidebar-links-hover-bg-color), 0.15);
-	color: rgb(var(--sidebar-links-hover-text-color));
-	font-weight: var(--wght);
-	text-decoration: none;
+  --wght: var(--ui-hvr-wght);
+  background-color: rgba(var(--sidebar-links-hover-bg-color), 0.15);
+  color: rgb(var(--sidebar-links-hover-text-color));
+  font-weight: var(--wght);
+  text-decoration: none;
 }
 
 /* ===MAIN LINKS HOVER BG BAR=== */
@@ -264,42 +248,31 @@ body {
 /* Menu Item Hover Color Bar */
 
 .side-block div.menu-item a::before {
-	--clip-path:
-		polygon(
-			0 0,
-			0 0,
-			0 100%,
-			0 100%
-		);
-	content: " ";
-	position: absolute;
-	z-index: -1;
-	top: 0;
-	left: calc(var(--base-font-size) * (14 / 15) * -1);
-	width: calc(100% + calc(var(--base-font-size) * (14 / 15)));
-	height: 100%;
-	transition: -webkit-clip-path 200ms cubic-bezier(0.4, 0, 0.2, 1);
-	transition: clip-path 200ms cubic-bezier(0.4, 0, 0.2, 1);
-	transition: clip-path 200ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-clip-path 200ms cubic-bezier(0.4, 0, 0.2, 1);
-	opacity: 1;
-	background-color: rgb(var(--sidebar-links-hover-bg-color));
-	pointer-events: none;
-	-webkit-clip-path: var(--clip-path);
-	        clip-path: var(--clip-path);
+  --clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  content: " ";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: calc(var(--base-font-size) * (14 / 15) * -1);
+  width: calc(100% + calc(var(--base-font-size) * (14 / 15)));
+  height: 100%;
+  transition: -webkit-clip-path 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: clip-path 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: clip-path 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    -webkit-clip-path 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  background-color: rgb(var(--sidebar-links-hover-bg-color));
+  pointer-events: none;
+  -webkit-clip-path: var(--clip-path);
+  clip-path: var(--clip-path);
 }
 
 .side-block div.menu-item a:hover::before,
 .side-block div.menu-item a:active::before,
 .side-block div.menu-item a:focus-within::before {
-	--clip-path:
-		polygon(
-			-15% 0,
-			115% 0,
-			100% 100%,
-			0 100%
-		);
+  --clip-path: polygon(-15% 0, 115% 0, 100% 100%, 0 100%);
 }
 
 .side-block div.menu-item img {
-	display: none;
+  display: none;
 }
