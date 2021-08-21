@@ -5,6 +5,8 @@
     "lint": "prettier --write ."
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-html": "^6.1.2",
     "prettier": "2.3.2"
   }
 }
