@@ -33,24 +33,28 @@
     </div>
 
     <script type="text/javascript">
+      /**
+       * Retrieves the value of the query parameter in the URL with the
+       * given key, if provided, otherwise returns the empty string.
+       */
       function getQueryString(name) {
-        var r = document.location.search.substr(1).split("&");
-        var Reg = new RegExp("^" + name + "=([^&]*)$", "i");
-        for (var i = 0; i < r.length; i++) {
-          if (r[i].search(Reg) > -1) {
-            r[i] = unescape(r[i].match(Reg)[1]);
-          } else {
-            r.splice(i, 1);
-            i--;
-          }
-        }
-        if (r.length > 0) {
-          return r[0];
-        } else {
+        // Get query parameters from the URL
+        var parameters = document.location.search.substr(1).split("&");
+        // Iterate parameters in reverse order so later values override
+        // ones
+        parameters.reverse();
+        // Find the parameter whose key is the given name
+        matchingParameter = parameters.find(function (parameter) {
+          return parameter.indexOf(name + "=") != -1;
+        });
+        if (matchingParameter == null) {
           return "";
         }
+        // Return the part of the parameter following the "="
+        return matchingParameter.substring(name.length + 1);
       }
 
+      // Get the current category of the page from the URL, if provided
       var pageCategory = getQueryString("category");
 
       // Get the list of branches. The category being set to 'wanderers'
