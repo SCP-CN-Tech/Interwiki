@@ -1,4 +1,4 @@
-var Int = {
+var scpBranches = {
   cn: {
     name: "中文",
     head: "其他语言",

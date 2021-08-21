@@ -52,19 +52,31 @@
       }
 
       var pageCategory = getQueryString("category");
-      var IntData =
-        pageCategory == "wanderers" || pageCategory == "wanderers-adult"
-          ? IntWL
-          : Int;
-      var IntKeys = Object.keys(IntData);
 
-      var sideBlock = document.getElementsByClassName("side-block")[0],
-        heading = document.getElementsByClassName("heading")[0],
-        inStyle = document.getElementById("internal-style"),
-        cuStyle = document.getElementById("custom-style");
-      var siteNum = IntKeys.length;
+      // Get the list of branches. The category being set to 'wanderers'
+      // indicates that the interwiki is being used for the Wanderers'
+      // Library; otherwise, assume it is being used for SCP.
+      var branches =
+        pageCategory == "wanderers" || pageCategory == "wanderers-adult"
+          ? wlBranches
+          : scpBranches;
+      var branchIds = Object.keys(branches);
+
+      var sideBlock = document.getElementsByClassName("side-block")[0];
+      var heading = document.getElementsByClassName("heading")[0];
+      var inStyle = document.getElementById("internal-style");
+      var cuStyle = document.getElementById("custom-style");
+
+      // TODO What is this?
+      var siteNum = branchIds.length;
+
+      // Get the configuration for the current branch
+      // TODO Why is this hardcoded to en?
       var siteLang = "en";
-      var siteData = IntData[siteLang];
+      var siteData = branches[siteLang];
+
+      // Get the Wikidot ID of the current branch
+      // TODO When could this fail? Why fallback to false?
       var siteID = siteData ? siteData["id"] : false;
       var pagename = getQueryString("pagename")
         .split("_default:")
@@ -158,7 +170,7 @@
         var itemsAry = sideBlock.getElementsByClassName("menu-item");
         var item = document.createElement("div");
         var idx = function (v) {
-          IntKeys.indexOf(v);
+          branchIds.indexOf(v);
         };
         item.classList.add("menu-item");
         item.setAttribute("name", c);
@@ -235,16 +247,15 @@
           ')">' +
           siteData["head"] +
           "</a></p>";
-        for (var i = 0; i < IntKeys.length; i++) {
-          var obj = IntData[IntKeys[i]];
+        for (var i = 0; i < branchIds.length; i++) {
+          var obj = branches[branchIds[i]];
           if (siteID !== obj["id"]) {
             getData(
               obj["url"],
               obj["name"],
               obj["id"],
-              obj["category"] + pagename,
-              IntKeys[i],
-              true
+              obj["category"] + pagename, // TODO Fullname - needs colon?
+              branchIds[i]
             );
           } else {
             siteNum--;

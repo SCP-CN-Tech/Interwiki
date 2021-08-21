@@ -1,4 +1,4 @@
-var IntWL = {
+var wlBranches = {
   cn: {
     name: "中文",
     head: "其他语言",
