@@ -33,7 +33,7 @@
     </div>
 
     <script type="text/javascript">
-      var getQueryString = (name) => {
+      function getQueryString(name) {
         var r = document.location.search.substr(1).split("&");
         var Reg = new RegExp("^" + name + "=([^&]*)$", "i");
         for (var i = 0; i < r.length; i++) {
@@ -49,7 +49,7 @@
         } else {
           return "";
         }
-      };
+      }
 
       var pageCategory = getQueryString("category");
       var IntData =
@@ -111,7 +111,8 @@
         }
       }
 
-      function changeStyle(str, mode = false) {
+      function changeStyle(str, mode) {
+        if (mode == null) mode = false;
         var typeAry = ["bhl", "wanderers", "default", "404"];
         if (typeAry.indexOf(str) > -1) {
           if (styleType != str) {
@@ -156,7 +157,9 @@
       function createItem(a, b, c) {
         var itemsAry = sideBlock.getElementsByClassName("menu-item");
         var item = document.createElement("div");
-        var idx = (v) => IntKeys.indexOf(v);
+        var idx = function (v) {
+          IntKeys.indexOf(v);
+        };
         item.classList.add("menu-item");
         item.setAttribute("name", c);
         item.innerHTML =
@@ -187,7 +190,7 @@
         getWikiModule({
           site_id: c,
           query: d,
-          function: (res) => {
+          function: function (res) {
             var check = false;
             for (var i = 0; i < res.length; i++) {
               if (res[i].unix_name == d) {
@@ -215,7 +218,9 @@
 
       function getDataAll() {
         var a = new Date(),
-          af = (v) => (v < 10 ? "0" + v : v),
+          af = function (v) {
+            v < 10 ? "0" + v : v;
+          },
           ay = a.getFullYear(),
           amo = af(a.getMonth() + 1),
           ad = af(a.getDate()),

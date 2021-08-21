@@ -1,5 +1,5 @@
 function getWikiModule(v) {
-  var _xhr = () => {
+  var _xhr = function () {
       if (window.XMLHttpRequest) {
         return new XMLHttpRequest();
       }
