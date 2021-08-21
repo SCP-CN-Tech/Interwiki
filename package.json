@@ -2,7 +2,7 @@
   "name": "interwiki",
   "version": "0.0.0",
   "scripts": {
-    "lint": "prettier"
+    "lint": "prettier --write ."
   },
   "devDependencies": {
     "prettier": "2.3.2"
