@@ -154,42 +154,50 @@ function createNewMenuItem(pageUrl, branchName, branchLang) {
  * TODO What does this function do?
  * TODO Maybe all the branch info can be consolidated to an object?
  *
- * @param {String} url
- * @param {String} branchName - The name of the branch.
- * @param {String} id - The numeric Wikidot site ID of the branch.
- * @param {String} fullname
  * @param {String} branchLang - The language code of the branch.
+ * @param {Object} branch - Configuration for the branch to lookup.
+ * @param {String} branch.url - The URL of the branch with trailing slash.
+ * @param {String} branch.name - The name of the branch.
+ * @param {String} branch.id - The numeric Wikidot site ID of the branch.
+ * @param {String} fullname - The Wikidot fullname of the page to lookup.
  */
-function getData(url, branchName, id, fullname, branchLang) {
-  getWikiModule({
-    site_id: id,
-    query: fullname,
-    function: function (res) {
-      var check = false;
-      for (var i = 0; i < res.length; i++) {
-        if (res[i].unix_name == fullname) {
-          check = true;
-          createNewMenuItem(url + fullname, branchName, branchLang);
-        } else if (
-          res[i].unix_name.match(new RegExp("^" + fullname)) &&
-          shorten
-        ) {
-          check = true;
-          createNewMenuItem(url + res[i].unix_name, branchName, branchLang);
-        }
+function getData(branchLang, branch, fullname) {
+  // TODO Remove the current site's category from the search fullanme
+  // TODO Prepend the search fullname with the target site's category
+  // TODO Truncate the search fullname if it's too long
+  findPagesInSiteStartingWith(branch.id, fullname, function (fullnames) {
+    // TODO I allowed this callback to be called with an empty array, is it
+    // okay with that?
+    var check = false;
+    // The lookup returns an array of fullnames, which must be checked for
+    // matches against the searched fullname
+    fullnames.forEach(function (fullname) {
+      if (fullname.unix_name === fullname) {
+        check = true;
+        createNewMenuItem(branch.url + fullname, branch.name, branchLang);
+      } else if (
+        fullname.unix_name.match(new RegExp("^" + fullname)) &&
+        shorten
+      ) {
+        check = true;
+        createNewMenuItem(
+          branch.url + fullname.unix_name,
+          branch.name,
+          branchLang
+        );
       }
-      if (check) {
-        sideBlock.removeAttribute("style");
-        // TODO Why does the sideBlock have a style attribute?
-        // TODO It doesn't appear that a style attribute is ever *added* to
-        // the sideBlock. Why is this explicit removal here?
-      }
-      siteNum--;
-      if ((styleCheck && check) || siteNum <= 0) {
-        styleCheck = false;
-        changeStyleCheck();
-      }
-    },
+    });
+    if (check) {
+      sideBlock.removeAttribute("style");
+      // TODO Why does the sideBlock have a style attribute?
+      // TODO It doesn't appear that a style attribute is ever *added* to
+      // the sideBlock. Why is this explicit removal here?
+    }
+    siteNum--;
+    if ((styleCheck && check) || siteNum <= 0) {
+      styleCheck = false;
+      changeStyleCheck();
+    }
   });
 }
 

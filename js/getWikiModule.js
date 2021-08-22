@@ -1,37 +1,43 @@
-function getWikiModule(v) {
-  var _xhr = function () {
-      if (window.XMLHttpRequest) {
-        return new XMLHttpRequest();
-      }
-      if (window.ActiveXObject) {
-        try {
-          return new ActiveXObject("Msxml2.XMLHTTP.6.0");
-        } catch (e) {}
-        try {
-          return new ActiveXObject("Msxml2.XMLHTTP.3.0");
-        } catch (e) {}
-        try {
-          return new ActiveXObject("Microsoft.XMLHTTP");
-        } catch (e) {}
-      }
-      return false;
-    },
-    xhr = _xhr(),
-    site_id = v.site_id ? "&s=" + v.site_id : "",
-    query = "&q=" + (v.query ? v.query : "_"),
-    url = "/quickmodule.php?module=PageLookupQModule" + site_id + query;
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4) {
-      if (xhr.status != 200) {
-        return;
-      }
+/**
+ * @callback findPagesCallback
+ * @param {String[]} fullnames
+ */
+
+/**
+ * In the given Wikidot site, searches for pages whose fullnames start with
+ * the given string.
+ *
+ * A 'fullname' is also referred to as a page's 'UNIX name'.
+ *
+ * @param {String} siteId - The numeric Wikidot site ID of the site to
+ * search.
+ * @param {String} fullname - The substring to compare fullnames against.
+ * If an underscore "_" is provided, all pages on the site will match.
+ * @param {findPagesCallback} callback - Will be called with the array of
+ * matching fullnames.
+ */
+function findPagesInSiteStartingWith(siteId, fullname, callback) {
+  var query = "&s=" + siteId + "&q=" + fullname;
+  var url = "/quickmodule.php?module=PageLookupQModule" + query;
+  var request = new XMLHttpRequest();
+  request.open("GET", url, true);
+  request.addEventListener("load", function () {
+    if (request.readyState === 4) {
+      fullnames = [];
       try {
-        var res = JSON.parse(xhr.responseText);
-        res = res[Object.keys(res)[0]];
-        v.function(res);
-      } catch (e) {}
+        if (request.status === 200) {
+          var response = JSON.parse(request.responseText);
+          // {"pages":[{"unix_name":"scp-xxx","title":"SCP-XXX"}]}
+          fullnames = response.pages.map(function (page) {
+            return page.unix_name;
+          });
+        }
+      } catch (error) {
+        // Parsing failed - assume there are no matching pages
+      } finally {
+        callback(fullnames);
+      }
     }
-  };
-  xhr.open("GET", url, true);
-  xhr.send();
+  });
+  request.send();
 }
