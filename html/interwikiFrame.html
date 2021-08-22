@@ -35,7 +35,15 @@
 
   <body>
     <div class="side-block" style="display: none">
-      <div id="heading" class="heading"></div>
+      <div class="heading">
+        <p>
+          <a
+            id="refresh-link"
+            onclick="window.location.reload(true)"
+            title=""
+          ></a>
+        </p>
+      </div>
     </div>
 
     <script type="text/javascript">
@@ -49,15 +57,14 @@
         pageCategory == "wanderers" || pageCategory == "wanderers-adult"
           ? wlBranches
           : scpBranches;
-      var branchIds = Object.keys(branches);
+      var branchLangs = Object.keys(branches);
 
       var sideBlock = document.getElementsByClassName("side-block")[0];
-      var heading = document.getElementById("heading");
       var inStyle = document.getElementById("internal-style");
       var cuStyle = document.getElementById("custom-style");
 
-      // TODO What is this?
-      var siteNum = branchIds.length;
+      // TODO What is trhis?
+      var siteNum = branchLangs.length;
 
       // Get the configuration for the current branch
       // TODO Why is this hardcoded to en?
@@ -66,13 +73,14 @@
 
       // Get the Wikidot ID of the current branch
       // TODO When could this fail? Why fallback to false?
-      var siteID = siteData ? siteData["id"] : false;
+      var currentBranchId = siteData ? siteData["id"] : false;
 
       // Get the page name without category
       var pagename = getQueryString("pagename")
         .replace(/^_default:/, "")
         .replace(new RegExp("^" + siteData["category"]), "");
       // TODO siteData["category"] doesn't have a trailing colon?
+      // (It does in WL's interwiki, which uses code hosted on topia)
 
       // TODO What is this?
       var shorten = false;

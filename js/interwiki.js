@@ -115,7 +115,7 @@ function createItem(a, b, c) {
   var itemsAry = sideBlock.getElementsByClassName("menu-item");
   var item = document.createElement("div");
   var idx = function (v) {
-    branchIds.indexOf(v);
+    branchLangs.indexOf(v);
   };
   item.classList.add("menu-item");
   item.setAttribute("name", c);
@@ -150,9 +150,9 @@ function createItem(a, b, c) {
  * @param {*} name
  * @param {*} id
  * @param {*} fullname
- * @param {*} branchId
+ * @param {*} branchLang
  */
-function getData(url, name, id, fullname, branchId) {
+function getData(url, name, id, fullname, branchLang) {
   getWikiModule({
     site_id: id,
     query: fullname,
@@ -161,17 +161,20 @@ function getData(url, name, id, fullname, branchId) {
       for (var i = 0; i < res.length; i++) {
         if (res[i].unix_name == fullname) {
           check = true;
-          createItem(url + fullname, name, branchId);
+          createItem(url + fullname, name, branchLang);
         } else if (
           res[i].unix_name.match(new RegExp("^" + fullname)) &&
           shorten
         ) {
           check = true;
-          createItem(url + res[i].unix_name, name, branchId);
+          createItem(url + res[i].unix_name, name, branchLang);
         }
       }
       if (check) {
         sideBlock.removeAttribute("style");
+        // TODO Why does the sideBlock have a style attribute?
+        // TODO It doesn't appear that a style attribute is ever *added* to
+        // the sideBlock. Why is this explicit removal here?
       }
       siteNum--;
       if ((styleCheck && check) || siteNum <= 0) {
@@ -183,41 +186,35 @@ function getData(url, name, id, fullname, branchId) {
 }
 
 /**
- * TODO What does this function do?
+ * Requests translation data for the current page from all configured
+ * branches. Also sets the hover information in the refresh link to the
+ * current time.
  */
 function getDataAll() {
-  var a = new Date(),
-    af = function (v) {
-      v < 10 ? "0" + v : v;
-    },
-    ay = a.getFullYear(),
-    amo = af(a.getMonth() + 1),
-    ad = af(a.getDate()),
-    ah = af(a.getHours()),
-    ami = af(a.getMinutes()),
-    as = af(a.getSeconds()),
-    time = ay + "/" + amo + "/" + ad + " " + ah + ":" + ami + ":" + as;
-  heading.innerHTML =
-    '<p><a onclick="window.location.reload(true);" title="Click Refresh ' +
-    "(Last Refresh：" +
-    time +
-    ')">' +
-    siteData["head"] +
-    "</a></p>";
-  for (var i = 0; i < branchIds.length; i++) {
-    var obj = branches[branchIds[i]];
-    if (siteID !== obj["id"]) {
-      getData(
-        obj["url"],
-        obj["name"],
-        obj["id"],
-        obj["category"] + pagename, // TODO Fullname - needs colon?
-        branchIds[i]
-      );
-    } else {
+  refreshLink = document.getElementById("refresh-link");
+  refreshLink.innerHTML = siteData["head"];
+  refreshLink.setAttribute(
+    "title",
+    // TODO Make the string here translatable
+    "Click to refresh (Last refresh：" + new Date().toLocaleString() + ")"
+  );
+  // For all configured sites that are not the current site, request
+  // translation data about this page
+  Object.keys(branches).forEach(function (branchLang) {
+    branch = branches[branchLang];
+    if (branch.id === currentBranchId) {
+      // TODO What is the significance of this?
       siteNum--;
+      return;
     }
-  }
+    getData(
+      branch["url"],
+      branch["name"],
+      branch["id"],
+      branch["category"] + pagename, // TODO Fullname - needs colon?
+      branchLang
+    );
+  });
 }
 
 /**
