@@ -1,4 +1,25 @@
 /**
+ * @typedef Branch
+ *
+ * Configuration for a single branch.
+ *
+ * A branch is usually a whole Wikidot site but can be restricted to a
+ * single category of a Wikidot site.
+ *
+ * @type {Object}
+ * @property {String} name - The official name of the branch.
+ * @property {String} head - The text of the header that will appear at the
+ * top of the Interwiki.
+ * @property {String} url - The URL of the site that contains this branch,
+ * with a trailing slash.
+ * @property {String} id - The numeric Wikidot site ID of the site that
+ * contains this branch.
+ * @property {String} category - The category within this site that
+ * contains the branch, with a trailing colon; or, if the branch is not
+ * contained to any category within the site, the empty string.
+ */
+
+/**
  * Retrieves the value of the query parameter in the URL with the
  * given key, if provided, otherwise returns the empty string.
  *
