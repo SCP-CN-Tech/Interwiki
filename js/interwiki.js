@@ -104,55 +104,63 @@ function changeStyleCheck() {
 }
 
 /**
- * TODO What does this function do?
- * TODO What should its parameters be named?
+ * Create a new menu item, containing a link to a page in a given branch,
+ * and append it to the side block.
  *
- * @param {*} a
- * @param {*} b
- * @param {*} c
+ * @param {String} pageUrl - The URL of the translation to link to.
+ * @param {String} branchName - The name of the branch.
+ * @param {String} branchLang - The language code of the branch.
  */
-function createItem(a, b, c) {
-  var itemsAry = sideBlock.getElementsByClassName("menu-item");
-  var item = document.createElement("div");
-  var idx = function (v) {
-    branchLangs.indexOf(v);
-  };
-  item.classList.add("menu-item");
-  item.setAttribute("name", c);
-  item.innerHTML =
-    '<img src="//scp-wiki.wdfiles.com/local--files/nav:side/default.png" alt="default.png" class="image" /><a href="' +
-    a +
-    '" target="_parent">' +
-    b +
-    "</a>";
-  if (
-    itemsAry.length == 0 ||
-    idx(itemsAry[itemsAry.length - 1].getAttribute("name")) <= idx(c)
-  ) {
-    sideBlock.appendChild(item);
-  } else {
-    for (var i = 0; i < itemsAry.length; i++) {
-      if (
-        idx(c) < idx(itemsAry[i].getAttribute("name")) &&
-        (i == 0 || idx(itemsAry[i - 1].getAttribute("name")) <= idx(c))
-      ) {
-        sideBlock.insertBefore(item, itemsAry[i]);
-        break;
-      }
+function createNewMenuItem(pageUrl, branchName, branchLang) {
+  var menuItems = sideBlock.getElementsByClassName("menu-item");
+
+  // Create the new menu item
+  var newMenuItem = document.createElement("div");
+  newMenuItem.classList.add("menu-item");
+  // Record its branch's language code in the element
+  newMenuItem.setAttribute("name", branchLang);
+
+  // Create the bullet point image
+  bullet = document.createElement("img");
+  bullet.setAttribute(
+    "src",
+    "//scp-wiki.wdfiles.com/local--files/nav:side/default.png"
+  );
+  bullet.setAttribute("alt", "default.png");
+  bullet.classList.add("image");
+  newMenuItem.appendChild(bullet);
+
+  // Create the actual link
+  link = document.createElement("a");
+  link.setAttribute("href", pageUrl);
+  link.setAttribute("target", "_parent");
+  link.innerText = branchName;
+  newMenuItem.appendChild(link);
+
+  // Add the new menu item to the end of the side block by default
+  menuItems.appendChild(newMenuItem);
+  // Then find the first existing menu item whose lang code is
+  // alphabetically greater than the new item, and move the new item to
+  // just before it
+  menuItems.some(function (menuItem) {
+    if (menuItem.getAttribute("name") > branchLang) {
+      menuItems.insertBefore(newMenuItem, menuItem);
+      return true;
     }
-  }
+  });
 }
 
 /**
  * TODO What does this function do?
+ * TODO Maybe all the branch info can be consolidated to an object?
  *
- * @param {*} url
- * @param {*} name
- * @param {*} id
- * @param {*} fullname
- * @param {*} branchLang
+ * @param {String} url
+ * @param {String} branchName - The name of the branch.
+ * @param {String} id - The numeric Wikidot site ID of the branch.
+ * @param {String} fullname
+ * @param {String} branchLang - The language code of the branch.
  */
-function getData(url, name, id, fullname, branchLang) {
+function getData(url, branchName, id, fullname, branchLang) {
   getWikiModule({
     site_id: id,
     query: fullname,
@@ -161,13 +169,13 @@ function getData(url, name, id, fullname, branchLang) {
       for (var i = 0; i < res.length; i++) {
         if (res[i].unix_name == fullname) {
           check = true;
-          createItem(url + fullname, name, branchLang);
+          createNewMenuItem(url + fullname, branchName, branchLang);
         } else if (
           res[i].unix_name.match(new RegExp("^" + fullname)) &&
           shorten
         ) {
           check = true;
-          createItem(url + res[i].unix_name, name, branchLang);
+          createNewMenuItem(url + res[i].unix_name, branchName, branchLang);
         }
       }
       if (check) {
