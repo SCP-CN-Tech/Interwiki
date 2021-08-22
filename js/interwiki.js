@@ -172,54 +172,53 @@ function createNewMenuItem(pageUrl, branchName, branchLang) {
 }
 
 /**
- * TODO What does this function do?
- * TODO Maybe all the branch info can be consolidated to an object?
+ * For the given target branch, find a page that is a translation of the
+ * paat fullname in the current branch. If one exists, create a menu item
+ * for it.
  *
- * @param {String} branchLang - The language code of the branch.
- * @param {Object} branch - Configuration for the branch to lookup.
- * @param {String} branch.url - The URL of the branch with trailing slash.
- * @param {String} branch.name - The name of the branch.
- * @param {String} branch.id - The numeric Wikidot site ID of the branch.
+ * @param {Branch} currentBranch - Configuration for the current branch.
+ * @param {String} targetBranchLang - The language code of the branch.
+ * @param {Branch} targetBranch - Configuration for the branch to lookup.
  * @param {String} fullname - The Wikidot fullname of the page to lookup.
  */
-function getData(branchLang, branch, fullname) {
-  // TODO Remove the current site's category from the search fullanme
-  // TODO Prepend the search fullname with the target site's category
-  // TODO Truncate the search fullname if it's too long
-  findPagesInSiteStartingWith(branch.id, fullname, function (fullnames) {
-    // TODO I allowed this callback to be called with an empty array, is it
-    // okay with that?
-    var check = false;
-    // The lookup returns an array of fullnames, which must be checked for
-    // matches against the searched fullname
-    fullnames.forEach(function (fullname) {
-      if (fullname.unix_name === fullname) {
-        check = true;
-        createNewMenuItem(branch.url + fullname, branch.name, branchLang);
-      } else if (
-        fullname.unix_name.match(new RegExp("^" + fullname)) &&
-        shorten
+function addTranslationForBranch(
+  currentBranch,
+  targetBranchLang,
+  targetBranch,
+  fullname
+) {
+  // Replace the current site's category with the target site's category,
+  // if either are defined
+  // E.g.:
+  // WL CN "wanderers:page" -> WL EN "page"
+  // WL EN "page" -> WL CN "wanderers:page"
+  // TODO siteData["category"] doesn't have a trailing colon?
+  targetFullname = fullname.replace(
+    new RegExp("^" + currentBranch.category),
+    targetBranch.category
+  );
+  // A fullname can be at most 60 characters long. If the target fullname
+  // is any longer, truncate it
+  targetFullname = targetFullname.substring(0, 60).replace(/-$/, "");
+  // Find pages in the target branch matching this fullname
+  findPagesInSiteStartingWith(
+    targetBranch.id,
+    targetFullname,
+    function (fullnames) {
+      // If there is an exact match, a translation has been found
+      if (
+        fullnames.some(function (matchedFullname) {
+          return matchedFullname === targetFullname;
+        })
       ) {
-        check = true;
         createNewMenuItem(
-          branch.url + fullname.unix_name,
-          branch.name,
-          branchLang
+          targetBranch.url + targetFullname,
+          targetBranch.name,
+          targetBranchLang
         );
       }
-    });
-    if (check) {
-      sideBlock.removeAttribute("style");
-      // TODO Why does the sideBlock have a style attribute?
-      // TODO It doesn't appear that a style attribute is ever *added* to
-      // the sideBlock. Why is this explicit removal here?
     }
-    siteNum--;
-    if ((styleCheck && check) || siteNum <= 0) {
-      styleCheck = false;
-      changeStyleCheck();
-    }
-  });
+  );
 }
 
 /**
@@ -227,7 +226,7 @@ function getData(branchLang, branch, fullname) {
  * branches. Also sets the hover information in the refresh link to the
  * current time.
  */
-function getDataAll() {
+function addTranslations() {
   refreshLink = document.getElementById("refresh-link");
   refreshLink.innerHTML = siteData["head"];
   refreshLink.setAttribute(
@@ -239,17 +238,11 @@ function getDataAll() {
   // translation data about this page
   Object.keys(branches).forEach(function (branchLang) {
     branch = branches[branchLang];
-    if (branch.id === currentBranchId) {
-      // TODO What is the significance of this?
-      siteNum--;
-      return;
-    }
-    getData(
-      branch["url"],
-      branch["name"],
-      branch["id"],
-      branch["category"] + pagename, // TODO Fullname - needs colon?
-      branchLang
+    if (branch.id === currentBranchId) return;
+    addTranslationForBranch(
+      branchLang,
+      branch,
+      branch["category"] + pagename // TODO Fullname - needs colon?
     );
   });
 }

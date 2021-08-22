@@ -75,15 +75,10 @@
       // TODO When could this fail? Why fallback to false?
       var currentBranchId = siteData ? siteData["id"] : false;
 
-      // Get the page name without category
-      var pagename = getQueryString("pagename")
-        .replace(/^_default:/, "")
-        .replace(new RegExp("^" + siteData["category"]), "");
-      // TODO siteData["category"] doesn't have a trailing colon?
-      // (It does in WL's interwiki, which uses code hosted on topia)
-
-      // TODO What is this?
-      var shorten = false;
+      // Get the page fullname, but without the default category
+      // TODO Maybe try to rename this query parameter to 'fullname' for
+      // consistency
+      var pagename = getQueryString("pagename").replace(/^_default:/, "");
 
       // TODO What is this?
       var styleType = getQueryString("style");
@@ -93,11 +88,6 @@
 
       // TODO What is this?
       var styleAry = [];
-
-      // TODO What is this, what is it doing, why is it necessary?
-      if (59 <= (siteData["category"] + pagename).length) {
-        shorten = true;
-      }
 
       // TODO What is happening here?
       // TODO This is the same check that was made for scpBranches vs
@@ -112,7 +102,7 @@
       bhlDarkCheck();
       switchStyleType();
       changeStyleCheck();
-      getDataAll();
+      addTranslations();
     </script>
     <div id="iframeset"></div>
   </body>
