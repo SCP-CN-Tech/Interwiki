@@ -47,57 +47,55 @@
     </div>
 
     <script type="text/javascript">
-      // Get the current category of the page from the URL, if provided
-      var pageCategory = getQueryString("category");
-
-      // Get the list of branches. The category being set to 'wanderers'
-      // indicates that the interwiki is being used for the Wanderers'
-      // Library; otherwise, assume it is being used for SCP.
-      var branches =
-        pageCategory == "wanderers" || pageCategory == "wanderers-adult"
-          ? wlBranches
-          : scpBranches;
-      var branchLangs = Object.keys(branches);
-
-      var sideBlock = document.getElementsByClassName("side-block")[0];
-      var inStyle = document.getElementById("internal-style");
-      var cuStyle = document.getElementById("custom-style");
-
-      // TODO What is trhis?
-      var siteNum = branchLangs.length;
-
-      // Get the configuration for the current branch
-      // TODO Why is this hardcoded to en?
-      var siteLang = "en";
-      var siteData = branches[siteLang];
-
-      // Get the Wikidot ID of the current branch
-      // TODO When could this fail? Why fallback to false?
-      var currentBranchId = siteData ? siteData["id"] : false;
+      // Get the community of the current page - expected to be either
+      // "scp" or "wl"
+      var community = getQueryString("community");
 
       // Get the page fullname, but without the default category
       // TODO Maybe try to rename this query parameter to 'fullname' for
       // consistency
       var pagename = getQueryString("pagename").replace(/^_default:/, "");
 
-      // TODO What is this?
-      var styleType = getQueryString("style");
+      // Get the list of branches for the given community
+      var branches = { wl: wlBranches, scp: scpBranches }[community] || {};
 
       // TODO What is this?
-      var styleCheck = true;
+      var siteNum = Object.keys(branches).length;
 
-      // TODO What is this?
+      // Get the configuration for the current branch
+      // TODO Rename "site" to "currentBranch"
+      var siteLang = getQueryString("lang");
+      var siteData = branches[siteLang];
+
+      // Get the Wikidot ID of the current branch
+      // TODO When could this fail? Why fallback to false?
+      // (This could fail if the interwiki is being used on a sandbox wiki
+      // for testing, for example)
+      // TODO What's this actually needed for?
+      var currentBranchId = siteData ? siteData.id : false;
+
+      // Cache of CSS strings that have been added to the stylesheet. Will
+      // be used to ignore later incoming CSS if it matches already-added
+      // CSS, preventing duplication
+      // TODO Should probably use separate <style> elements for this and
+      // then check to see if incoming CSS is identical to one; if it is,
+      // move it to the top.
+      // TODO Keeping all CSS in a single style element will prevent
+      // @imports unless that CSS is at the very top, because @import must
+      // come first.
       var styleAry = [];
 
-      // TODO What is happening here?
-      // TODO This is the same check that was made for scpBranches vs
-      // wlBranches, perhaps they can be consolidated?
+      // If provided, use the style parameter to manually set the value of
+      // styleType, which will be used to determine the base theme of the
+      // interwiki. If not provided, pick a sensible default value.
+      var styleType = getQueryString("style");
       if (styleType == "") {
-        styleType =
-          pageCategory == "wanderers" || pageCategory == "wanderers-adult"
-            ? "wanderers"
-            : "default";
+        styleType = { wl: "wanderers" }[community] || "default";
       }
+
+      var sideBlock = document.getElementsByClassName("side-block")[0];
+      var inStyle = document.getElementById("internal-style");
+      var cuStyle = document.getElementById("custom-style");
 
       bhlDarkCheck();
       switchStyleType();
