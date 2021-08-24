@@ -39,10 +39,10 @@ information about the current page.
 
 There are a few placeholders in that URL that must be changed:
 
-- **`SITE`:** The UNIX name of the Wikidot site that the
-  `interwikiFrame.html` has been uploaded to. The SCP Wiki (`scp-wiki`) has
-  this file uploaded already, so you can just set it to that, unless you
-  wish to upload the file to your wiki yourself.
+- **`SITE`:** The UNIX name of the Wikidot site that `interwikiFrame.html`
+  has been uploaded to. The SCP Wiki (`scp-wiki`) has this file uploaded
+  already, so you can just set it to that, unless you wish to upload the
+  file to your wiki yourself.
 - **`PAGE`:** The fullname (a.k.a. page UNIX name) of the page that
   `interwikiFrame.html` has been uploaded to. This SCP wiki has this file
   uploaded to the page at fullname `nav:side`.
@@ -52,7 +52,7 @@ There are a few placeholders in that URL that must be changed:
   community.
 - **`COMMUNITY:`** The community that the current page belongs to. Can be
   either `scp` or `wl`. If your site hosts pages from only one community,
-  just add it; if your site hosts pages from either community, you may wish
+  just add it; if your site hosts pages from both communities, you may wish
   to use ListPages to detect which one the current page belongs to (see below).
 
 <details>
@@ -81,6 +81,88 @@ more than one Interwiki per page.
 </details>
 
 ## Styling the Interwiki
+
+The Interwiki, by default, does not have any styling. To style it, a
+`styleFrame` must be added. A `styleFrame` applies CSS styling to the
+`interwikiFrame`.
+
+To add a `styleFrame` to a Wikidot page:
+
+```Soong
+[[iframe https://SITE.wdfiles.com/local--files/PAGE/styleFrame.html?priority=PRIORITY&theme=THEME&css=CSS style="display: none;"]]
+```
+
+There are a few placeholders in that URL that must be changed:
+
+- **`SITE`:** The UNIX name of the Wikidot site that `styleFrame.html` has
+  been uploaded to. The SCP Wiki (`scp-wiki`) has this file uploaded
+  already, so you can just set it to that, unless you wish to upload the
+  file to your wiki yourself.
+- **`PAGE`:** The fullname (a.k.a. page UNIX name) of the page that
+  `styleFrame.html` has been uploaded to. This SCP wiki has this file
+  uploaded to the page at fullname `nav:side`.
+- **`PRIORITY`:** The priority of the styling that this `styleFrame`
+  applies. Corresponds to the internal sort order of the CSS. The base
+  theme of the site should have a priority of 0. The priority number of any
+  other CSS theme should be the priority number of the theme it extends,
+  plus one. The Interwiki will raise a warning in the browser console if it
+  encounters two styles with the same priority number.
+- **`THEME`:** The fullname of a page on the current site. The first [code
+  block](https://www.wikidot.com/doc-wiki-syntax:code-blocks) on that page
+  will be imported as CSS. Optionally, `/code/n` may be appended to the
+  fullname to get the `n`th code block.
+- **`CSS`:** [URI-encoded](https://meyerweb.com/eric/tools/dencoder/) CSS
+  to apply directly to the Interwiki.
+
+The `theme` and `css` parameters determine the CSS styling that the
+`styleFrame` adds. At least one must be present for the `styleFrame` to do
+anything. If both are present, the styling from `theme` will be added
+_before_ the styling from `css`.
+
+Note the `style="display: none;"` at the end of the `styleFrame` iframe.
+This just hides the iframe &mdash; it doesn't set the style of the
+Interwiki.
+
+### Adding default styling
+
+To add default styling to your site's Interwiki, on **the same page as the
+`interwikiFrame` iframe**, add a `styleFrame` with `priority=0`.
+
+For example, the following `interwikiFrame` and `styleFrame` would be on
+the page `nav:side` of the SCP Wiki:
+
+```Soong
+[[module ListPages range="." limit="1"]]
+[[iframe https://scp-wiki.wdfiles.com/local--files/nav:side/interwikiFrame.html?lang=en&community=scp&pagename=%%fullname%%]]
+[[/module]]
+
+[[iframe https://scp-wiki.wdfiles.com/local--files/nav:side/styleFrame.html?priority=0&theme=component:theme style="display: none;"]]
+```
+
+### Adding additional styling
+
+To add additional styling (e.g. for a CSS theme to add its own styling to
+the Interwiki), another `styleFrame` should be added to that theme, with a
+higher `priority` number.
+
+CSS themes hosted on your site are expected to be used via Wikidot
+[`[[include]]`](https://www.wikidot.com/doc-wiki-syntax:include). If this
+is the case, `[[include]]`ing CSS themes that style the Interwiki should
+result in styling being applied as expected, so long as all CSS themes used
+have the correct `priority` number.
+
+For example, for a CSS theme on the SCP Wiki located at the page
+`theme:my-theme`, with a single code block containing all the CSS including
+CSS that will be applied to the Interwiki, intended to be used via
+`[[include theme:my-theme]]`:
+
+```Soong
+[[iframe https://scp-wiki.wdfiles.com/local--files/nav:side/styleFrame.html?priority=1&theme=theme:my-theme style="display: none;"]]
+```
+
+In this example, the theme `theme:my-theme` is an extension to Sigma-9
+(which, being the base theme of the site, has a priority number of 0), so
+its priority is 1 (Sigma-9's priority plus one).
 
 # Development
 

@@ -3,32 +3,21 @@ styleFrame.html is embedded into themes to communicate styling changes to
 the main interwikiIframe.html.
 
 To be able to communicate, they two must be on the on the same host.
-
-The following URL parameters may be provided:
-mode (required) - TODO Unknown
-page (optional) - The name of the page that contains the code for the
-theme. The interwiki will attempt to import that page's first code block as
-CSS and apply it to itself.
-css (optional) - Percent-encoded CSS to be applied to the interwiki
-directly. Will be applied after the CSS resulting from `page`, if provided.
-
-TODO Doesn't styleFrame need to know the wiki name to be able to get the
-CSS code block?
-
-TODO Documentation for `css` parameter is prospective
 -->
 
 <html>
   <head>
     <script type="text/javascript">
+      // TODO str was ambiguously either the raw CSS or query parameters,
+      // but now it is just query parameters. Verify
       var str = decodeURIComponent(window.location.search.substr(1));
+      // TODO What is the significance of "customStyleFrame"?
       var mode = window.class == "customStyleFrame";
-      function sendStyle() {
-        try {
-          window.parent.window.interwikiFrame.changeStyle(str, mode);
-        } catch (e) {}
-      }
-      sendStyle();
+      // TODO I would like to pass the raw query string directly to
+      // changeStyle, and have it execute getQueryString on its end, but it
+      // may be used elsewhere in places where that assumption doesn't
+      // hold. I need to check.
+      window.parent.window.interwikiFrame.changeStyle(str, mode);
     </script>
   </head>
 </html>
