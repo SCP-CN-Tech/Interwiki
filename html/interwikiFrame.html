@@ -51,14 +51,16 @@
     </div>
 
     <script type="text/javascript">
+      /* global getQueryString, createInterwiki */
+
       // Expose identity for styleFrame
       window.isInterwikiFrame = true;
 
       var community = getQueryString(location.search, "community");
       var pagename = getQueryString(location.search, "pagename");
-      var siteLang = getQueryString(location.search, "lang");
+      var lang = getQueryString(location.search, "lang");
 
-      createInterwiki(community, pagename, siteLang);
+      createInterwiki(community, pagename, lang);
     </script>
     <div id="iframeset"></div>
   </body>

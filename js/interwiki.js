@@ -1,3 +1,6 @@
+/* global wlBranches, scpBranches, requestStyleChange, addTranslations */
+/* exported getQueryString, pullStyles, createInterwiki */
+
 /**
  * Retrieves the value of the query parameter in the URL with the
  * given key, if provided, otherwise returns the empty string.
@@ -12,7 +15,7 @@ function getQueryString(query, name) {
   // Iterate parameters in reverse so later values override earlier ones
   parameters.reverse();
   // Find the parameter whose key is the given name
-  matchingParameter = parameters.find(function (parameter) {
+  var matchingParameter = parameters.find(function (parameter) {
     return parameter.indexOf(name + "=") === 0;
   });
   if (matchingParameter == null) return "";
@@ -54,28 +57,15 @@ function pullStyles() {
  *
  * @param {"scp" | "wl"} community - The community of the interwiki.
  * @param {String} pagename - The Wikidot fullname of the current page.
- * @param {String} siteLang - The language code of the current branch of
- * the given community.
+ * @param {String} currentBranchLang - The language code of the current branch
+ * of the given community.
  */
-function createInterwiki(community, pagename, siteLang) {
+function createInterwiki(community, pagename, currentBranchLang) {
   pagename = pagename.replace(/^_default:/, "");
 
   // Get the list of branches for the given community
   var branches = { wl: wlBranches, scp: scpBranches }[community] || {};
 
-  // Get the configuration for the current branch
-  // TODO Rename "site" to "currentBranch"
-  var siteData = branches[siteLang];
-
-  // Get the Wikidot ID of the current branch
-  // TODO When could this fail? Why fallback to false?
-  // (This could fail if the interwiki is being used on a sandbox wiki
-  // for testing, for example)
-  // TODO What's this actually needed for?
-  var currentBranchId = siteData ? siteData.id : false;
-
-  var sideBlock = document.getElementsByClassName("side-block")[0];
-
   pullStyles();
-  addTranslations();
+  addTranslations(branches, currentBranchLang);
 }

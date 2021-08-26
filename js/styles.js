@@ -1,3 +1,6 @@
+/* global getQueryString */
+/* exported requestStyleChange */
+
 /**
  * Handles a style request from a styleFrame.
  *
@@ -54,7 +57,7 @@ function addExternalStyle(priority, url) {
   var linkElements = Array.prototype.slice.call(
     document.head.querySelectorAll("link.custom-style")
   );
-  if (linkElements.some(duplicatesStyle(priority, css))) return;
+  if (linkElements.some(duplicatesStyle(priority, url))) return;
 
   // Create a new link element for the stylesheet
   var link = document.createElement("link");

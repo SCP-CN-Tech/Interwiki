@@ -1,3 +1,5 @@
+/* exported addTranslations */
+
 /**
  * @typedef Branch
  *
@@ -23,25 +25,33 @@
  * Requests translation data for the current page from all configured
  * branches. Also sets the hover information in the refresh link to the
  * current time.
+ *
+ * @param {Object.<String, Branch>} branches - The branches configuration
+ * for the current community.
+ * @param {String} currentBranchLang - The language code of the current
+ * branch, as defined in the community's branches config.
+ * @param {String} pagename - The fullname of the page in the current
+ * branch to find translations for.
  */
-function addTranslations() {
-  refreshLink = document.getElementById("refresh-link");
-  refreshLink.innerHTML = siteData.head;
+function addTranslations(branches, currentBranchLang, pagename) {
+  // Get the config for the current branch, if configured
+  var currentBranch = branches[currentBranchLang] || {};
+
+  // Construct the click-to-refresh link
+  var refreshLink = document.getElementById("refresh-link");
+  refreshLink.innerHTML = currentBranch.head;
   refreshLink.setAttribute(
     "title",
     // TODO Make the string here translatable
     "Click to refresh (Last refresh：" + new Date().toLocaleString() + ")"
   );
+
   // For all configured sites that are not the current site, request
   // translation data about this page
   Object.keys(branches).forEach(function (branchLang) {
-    branch = branches[branchLang];
-    if (branch.id === currentBranchId) return;
-    addTranslationForBranch(
-      branchLang,
-      branch,
-      branch.category + pagename // TODO Fullname - needs colon?
-    );
+    if (branchLang === currentBranchLang) return;
+    var branch = branches[branchLang];
+    addTranslationForBranch(branchLang, branch, pagename);
   });
 }
 
@@ -66,8 +76,7 @@ function addTranslationForBranch(
   // E.g.:
   // WL CN "wanderers:page" -> WL EN "page"
   // WL EN "page" -> WL CN "wanderers:page"
-  // TODO siteData["category"] doesn't have a trailing colon?
-  targetFullname = fullname.replace(
+  var targetFullname = fullname.replace(
     new RegExp("^" + currentBranch.category),
     targetBranch.category
   );
@@ -122,6 +131,7 @@ function addTranslationForBranch(
  * @param {String} branchLang - The language code of the branch.
  */
 function addTranslationLink(pageUrl, branchName, branchLang) {
+  var sideBlock = document.getElementsByClassName("side-block")[0];
   var menuItems = sideBlock.getElementsByClassName("menu-item");
 
   // Create the new menu item
@@ -131,7 +141,7 @@ function addTranslationLink(pageUrl, branchName, branchLang) {
   newMenuItem.setAttribute("name", branchLang);
 
   // Create the bullet point image
-  bullet = document.createElement("img");
+  var bullet = document.createElement("img");
   bullet.setAttribute(
     "src",
     "//scp-wiki.wdfiles.com/local--files/nav:side/default.png"
@@ -141,7 +151,7 @@ function addTranslationLink(pageUrl, branchName, branchLang) {
   newMenuItem.appendChild(bullet);
 
   // Create the actual link
-  link = document.createElement("a");
+  var link = document.createElement("a");
   link.setAttribute("href", pageUrl);
   link.setAttribute("target", "_parent");
   link.innerText = branchName;
@@ -185,7 +195,7 @@ function findPagesInSiteStartingWith(siteId, fullname, callback) {
   request.open("GET", url, true);
   request.addEventListener("load", function () {
     if (request.readyState === 4) {
-      fullnames = [];
+      var fullnames = [];
       try {
         if (request.status === 200) {
           var response = JSON.parse(request.responseText);
