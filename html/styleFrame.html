@@ -9,6 +9,9 @@ To be able to communicate, the two must be on the on the same host.
 <html>
   <head>
     <script type="text/javascript">
+      // Expose identity for interwikiFrame
+      window.isStyleFrame = true;
+
       // Find interwikiFrames in the parent that have initialised before
       // this styleFrame did, and push the query parameters to it
       Array.prototype.slice.call(parent).forEach(function (frame) {

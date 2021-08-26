@@ -21,31 +21,29 @@ function getQueryString(query, name) {
 }
 
 /**
- * TODO What is this function?
- * TODO It appears to execute all three of these things regardless -
- * perhaps all but one of them is expected to fail? Is the order important?
+ * Finds styleFrames embedded in the parent page and pulls their style
+ * change requests for the interwikiFrame to use.
+ *
+ * styleFrames will also attempt to push their styles to the
+ * interwikiFrame. The two methods work in unison to ensure that the
+ * interwikiFrame receives all styles regardless of what order the iframes
+ * initialise in.
+ *
+ * This function is also called on window reload prompted by the
+ * interwiki's click-to-refresh, at which point it is very likely that all
+ * styleFrames will have finished initialising.
  */
-function changeStyleCheck() {
-  try {
-    changeStyle(
-      decodeURIComponent(
-        window.parent.window.typeFrame.location.search.substr(1)
-      )
-    );
-  } catch (e) {}
-  try {
-    changeStyle(
-      decodeURIComponent(
-        window.parent.window.styleFrame.location.search.substr(1)
-      )
-    );
-  } catch (e) {}
-  try {
-    changeStyle(
-      decodeURIComponent(
-        window.parent.window.customStyleFrame.location.search.substr(1)
-      ),
-      true
-    );
-  } catch (e) {}
+function pullStyles() {
+  // Find styleFrames in the parent that have initialised before this
+  // interwikiFrame did, and pull their query parameters
+  Array.prototype.slice.call(parent).forEach(function (frame) {
+    try {
+      if (frame.isStyleFrame) {
+        requestStyleChange(frame.location.search);
+      }
+    } catch (error) {
+      // styleFrames that have not finished initialising will push their
+      // styles to the interwikiFrame when they are ready
+    }
+  });
 }
