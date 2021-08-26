@@ -1,39 +1,30 @@
+/* exported createResizeIframe */
+
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
-  var mySite = document.referrer.replace(/(https?:\/\/[^/]*)\/?.*/, "$1/");
-
+/**
+ * Constructs and returns a function that, when called, resizes the current
+ * iframes to match its contents.
+ *
+ * @param {String} site - The base URL of the site.
+ * @param {String} page - The fullname of the parent page.
+ */
+function createResizeIframe(site, page) {
   var iframeSet = document.getElementById("iframeset");
-  var oldHeight = 0;
+  var resizer = document.createElement("iframe");
+  resizer.style.display = "none";
+  iframeSet.appendChild(resizer);
 
-  var url = location.href;
-  url = url.replace(/^.*\//, "/");
+  var height = iframeSet.getBoundingClientRect().top;
+  var cacheBreak = String(Math.floor(Math.random() * 10000));
 
-  createResizeIframe();
-
-  function createResizeIframe() {
-    var Height = getMyHeight();
-    var iframe = document.createElement("iframe");
-    var CacheBreak = String(Math.floor(Math.random() * 10000));
-
-    if (Height != oldHeight) {
-      iframeSet.innerHTML = "";
-      iframe.src =
-        mySite +
-        "common--javascript/resize-iframe.html?" +
-        CacheBreak +
-        "#" +
-        Height +
-        url;
-      iframe.style.display = "none";
-
-      iframeSet.appendChild(iframe);
-      oldHeight = Height;
-    }
-    setTimeout(createResizeIframe, 50);
-  }
-
-  function getMyHeight() {
-    return iframeSet.getBoundingClientRect().top;
-  }
-});
+  return function () {
+    resizer.src =
+      site +
+      "common--javascript/resize-iframe.html?" +
+      cacheBreak +
+      "#" +
+      height +
+      page;
+  };
+}
