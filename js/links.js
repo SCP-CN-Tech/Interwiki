@@ -34,8 +34,10 @@
  * branch, as defined in the community's branches config.
  * @param {String} pagename - The fullname of the page in the current
  * branch to find translations for.
+ * @param {Function} resize - A callback to resize the iframe after adding
+ * a new translation.
  */
-function addTranslations(branches, currentBranchLang, pagename) {
+function addTranslations(branches, currentBranchLang, pagename, resize) {
   // Get the config for the current branch, if configured
   var currentBranch = branches[currentBranchLang] || {};
 
@@ -53,7 +55,7 @@ function addTranslations(branches, currentBranchLang, pagename) {
   Object.keys(branches).forEach(function (branchLang) {
     if (branchLang === currentBranchLang) return;
     var branch = branches[branchLang];
-    addTranslationForBranch(branchLang, branch, pagename);
+    addTranslationForBranch(branchLang, branch, pagename, resize);
   });
 }
 
@@ -66,12 +68,15 @@ function addTranslations(branches, currentBranchLang, pagename) {
  * @param {String} targetBranchLang - The language code of the branch.
  * @param {Branch} targetBranch - Configuration for the branch to lookup.
  * @param {String} fullname - The Wikidot fullname of the page to lookup.
+ * @param {Function} resize - A callback to resize the iframe after adding
+ * a new translation.
  */
 function addTranslationForBranch(
   currentBranch,
   targetBranchLang,
   targetBranch,
-  fullname
+  fullname,
+  resize
 ) {
   // Replace the current site's category with the target site's category,
   // if either are defined
@@ -120,6 +125,9 @@ function addTranslationForBranch(
           targetBranchLang
         );
       }
+
+      // Resize the iframe to account for the new link
+      resize();
     }
   );
 }

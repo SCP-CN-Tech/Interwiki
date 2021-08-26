@@ -1,4 +1,10 @@
-/* global wlBranches, scpBranches, requestStyleChange, addTranslations */
+/* global
+  wlBranches,
+  scpBranches,
+  requestStyleChange,
+  addTranslations,
+  createResizeIframe
+*/
 /* exported getQueryString, pullStyles, createInterwiki */
 
 "use strict";
@@ -68,6 +74,11 @@ function createInterwiki(community, pagename, currentBranchLang) {
   // Get the list of branches for the given community
   var branches = { wl: wlBranches, scp: scpBranches }[community] || {};
 
+  // Construct the function that will resize the frame after changes
+  var site = parent.location.origin;
+  var page = location.href.replace(/^.*\//, "/");
+  var resize = createResizeIframe(site, page);
+
   pullStyles();
-  addTranslations(branches, currentBranchLang);
+  addTranslations(branches, currentBranchLang, pagename, resize);
 }

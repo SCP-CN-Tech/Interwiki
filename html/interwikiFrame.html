@@ -60,7 +60,9 @@
       var pagename = getQueryString(location.search, "pagename");
       var lang = getQueryString(location.search, "lang");
 
-      createInterwiki(community, pagename, lang);
+      addEventListener("DOMContentLoaded", function () {
+        createInterwiki(community, pagename, lang);
+      });
     </script>
     <div id="iframeset"></div>
   </body>
