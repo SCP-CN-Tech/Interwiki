@@ -43,35 +43,6 @@ function getQueryString(query, name) {
 
 /**
  * TODO What is this function?
- * TODO The function seems to be named for its implementation, that
- * needs to change
- * TODO The function appears to execute a side effect on inStyle et al,
- * which is not ideal, unless it is called externally
- */
-function switchStyleType() {
-  switch (styleType) {
-    case "wanderers":
-      inStyle.innerHTML =
-        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style-wl.css);";
-      break;
-    case "bhl":
-      inStyle.innerHTML =
-        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style-bhl.css);";
-      break;
-    case "404":
-      inStyle.innerHTML =
-        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style-404.css);";
-      if (pageCategory == "wanderers" || pageCategory == "wanderers-adult")
-        cuStyle.innerHTML = ".side-block div.menu-item a {color: #059400}";
-      break;
-    default:
-      inStyle.innerHTML =
-        "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style.css);";
-  }
-}
-
-/**
- * TODO What is this function?
  * TODO It appears to execute all three of these things regardless -
  * perhaps all but one of them is expected to fail? Is the order important?
  */
@@ -239,28 +210,4 @@ function addTranslations() {
       branch["category"] + pagename // TODO Fullname - needs colon?
     );
   });
-}
-
-/**
- * TODO What does this function do?
- */
-function bhlDark() {
-  var bhlDarkStyle = document.createElement("style");
-  bhlDarkStyle.setAttribute("type", "text/css");
-  bhlDarkStyle.innerHTML =
-    "@import url(https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/css/style-bhl-dark.css);";
-  document
-    .getElementsByTagName("head")[0]
-    .insertBefore(bhlDarkStyle, document.getElementById("custom-style"));
-}
-
-/**
- * TODO What does this function do?
- */
-function bhlDarkCheck() {
-  try {
-    if (window.parent.window.BHLDarkFrame) {
-      bhlDark();
-    }
-  } catch (e) {}
 }
