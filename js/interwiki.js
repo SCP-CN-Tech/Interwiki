@@ -73,29 +73,6 @@ function switchStyleType() {
 
 /**
  * TODO What is this function?
- * @param {*} str
- * @param {*} mode
- */
-function changeStyle(str, mode) {
-  if (mode == null) mode = false;
-  var typeAry = ["bhl", "wanderers", "default", "404"];
-  if (typeAry.indexOf(str) > -1) {
-    if (styleType != str) {
-      styleType = str;
-      switchStyleType();
-    }
-  } else if (styleAry.indexOf(str) == -1) {
-    styleAry.push(str);
-    if (mode) {
-      cuStyle.innerHTML += str;
-    } else {
-      cuStyle.innerHTML = str + cuStyle.innerHTML;
-    }
-  }
-}
-
-/**
- * TODO What is this function?
  * TODO It appears to execute all three of these things regardless -
  * perhaps all but one of them is expected to fail? Is the order important?
  */
