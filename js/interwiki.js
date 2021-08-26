@@ -47,3 +47,35 @@ function pullStyles() {
     }
   });
 }
+
+/**
+ * Main procedure for the interwiki. Prepare contextual data, apply CSS
+ * styling, and add links to translations.
+ *
+ * @param {"scp" | "wl"} community - The community of the interwiki.
+ * @param {String} pagename - The Wikidot fullname of the current page.
+ * @param {String} siteLang - The language code of the current branch of
+ * the given community.
+ */
+function createInterwiki(community, pagename, siteLang) {
+  pagename = pagename.replace(/^_default:/, "");
+
+  // Get the list of branches for the given community
+  var branches = { wl: wlBranches, scp: scpBranches }[community] || {};
+
+  // Get the configuration for the current branch
+  // TODO Rename "site" to "currentBranch"
+  var siteData = branches[siteLang];
+
+  // Get the Wikidot ID of the current branch
+  // TODO When could this fail? Why fallback to false?
+  // (This could fail if the interwiki is being used on a sandbox wiki
+  // for testing, for example)
+  // TODO What's this actually needed for?
+  var currentBranchId = siteData ? siteData.id : false;
+
+  var sideBlock = document.getElementsByClassName("side-block")[0];
+
+  pullStyles();
+  addTranslations();
+}

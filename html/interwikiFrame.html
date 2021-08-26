@@ -18,6 +18,7 @@
       src="https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/js/createResizeIframe.js"
     ></script>
 
+    <!-- Main interwiki procedure -->
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/js/interwiki.js"
@@ -53,50 +54,11 @@
       // Expose identity for styleFrame
       window.isInterwikiFrame = true;
 
-      // Get the community of the current page - expected to be either
-      // "scp" or "wl"
       var community = getQueryString(location.search, "community");
-
-      // Get the page fullname, but without the default category
-      // TODO Maybe try to rename this query parameter to 'fullname' for
-      // consistency
-      var pagename = getQueryString(location.search, "pagename").replace(
-        /^_default:/,
-        ""
-      );
-
-      // Get the list of branches for the given community
-      var branches = { wl: wlBranches, scp: scpBranches }[community] || {};
-
-      // TODO What is this?
-      var siteNum = Object.keys(branches).length;
-
-      // Get the configuration for the current branch
-      // TODO Rename "site" to "currentBranch"
+      var pagename = getQueryString(location.search, "pagename");
       var siteLang = getQueryString(location.search, "lang");
-      var siteData = branches[siteLang];
 
-      // Get the Wikidot ID of the current branch
-      // TODO When could this fail? Why fallback to false?
-      // (This could fail if the interwiki is being used on a sandbox wiki
-      // for testing, for example)
-      // TODO What's this actually needed for?
-      var currentBranchId = siteData ? siteData.id : false;
-
-      // If provided, use the style parameter to manually set the value of
-      // styleType, which will be used to determine the base theme of the
-      // interwiki. If not provided, pick a sensible default value.
-      var styleType = getQueryString(location.search, "style");
-      if (styleType == "") {
-        styleType = { wl: "wanderers" }[community] || "default";
-      }
-
-      var sideBlock = document.getElementsByClassName("side-block")[0];
-      var inStyle = document.getElementById("internal-style");
-      var cuStyle = document.getElementById("custom-style");
-
-      pullStyles();
-      addTranslations();
+      createInterwiki(community, pagename, siteLang);
     </script>
     <div id="iframeset"></div>
   </body>
