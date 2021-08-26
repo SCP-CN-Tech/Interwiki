@@ -1,3 +1,7 @@
+/* exported wlBranches */
+
+"use strict";
+
 var wlBranches = {
   cn: {
     name: "中文",

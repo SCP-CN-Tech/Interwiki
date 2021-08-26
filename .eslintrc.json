@@ -6,5 +6,8 @@
     "ecmaVersion": 5
   },
   "extends": ["eslint:recommended"],
-  "plugins": ["html"]
+  "plugins": ["html"],
+  "rules": {
+    "strict": ["error", "global"]
+  }
 }

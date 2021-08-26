@@ -1,5 +1,7 @@
 /* exported addTranslations */
 
+"use strict";
+
 /**
  * @typedef Branch
  *

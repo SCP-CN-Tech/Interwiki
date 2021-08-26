@@ -1,6 +1,8 @@
 /* global wlBranches, scpBranches, requestStyleChange, addTranslations */
 /* exported getQueryString, pullStyles, createInterwiki */
 
+"use strict";
+
 /**
  * Retrieves the value of the query parameter in the URL with the
  * given key, if provided, otherwise returns the empty string.

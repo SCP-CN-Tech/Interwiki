@@ -1,6 +1,8 @@
 /* global getQueryString */
 /* exported requestStyleChange */
 
+"use strict";
+
 /**
  * Handles a style request from a styleFrame.
  *

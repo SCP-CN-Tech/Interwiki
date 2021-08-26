@@ -1,3 +1,7 @@
+/* exported scpBranches */
+
+"use strict";
+
 var scpBranches = {
   cn: {
     name: "中文",

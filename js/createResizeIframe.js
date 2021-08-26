@@ -1,3 +1,5 @@
+"use strict";
+
 document.addEventListener("DOMContentLoaded", function () {
   var mySite = document.referrer.replace(/(https?:\/\/[^/]*)\/?.*/, "$1/");
 
