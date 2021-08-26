@@ -1,23 +1,27 @@
 <!--
 styleFrame.html is embedded into themes to communicate styling changes to
-the main interwikiIframe.html.
+the main interwikiFrame.html.
 
-To be able to communicate, they two must be on the on the same host.
+To be able to communicate, the two must be on the on the same host.
 -->
 
+<!DOCTYPE html>
 <html>
   <head>
     <script type="text/javascript">
-      // TODO str was ambiguously either the raw CSS or query parameters,
-      // but now it is just query parameters. Verify
-      var str = decodeURIComponent(window.location.search.substr(1));
-      // TODO What is the significance of "customStyleFrame"?
-      var mode = window.class == "customStyleFrame";
-      // TODO I would like to pass the raw query string directly to
-      // changeStyle, and have it execute getQueryString on its end, but it
-      // may be used elsewhere in places where that assumption doesn't
-      // hold. I need to check.
-      window.parent.window.interwikiFrame.changeStyle(str, mode);
+      // Find interwikiFrames in the parent that have initialised before
+      // this styleFrame did, and push the query parameters to it
+      Array.prototype.slice.call(parent).forEach(function (frame) {
+        try {
+          if (frame.isInterwikiFrame) {
+            frame.requestStyleChange(location.search);
+          }
+        } catch (error) {
+          // If an interwikiFrame in the parent isn't ready to receive a style
+          // change request, that's fine - it will pull the style from this
+          // styleFrame when it's ready
+        }
+      });
     </script>
   </head>
 </html>

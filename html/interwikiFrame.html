@@ -46,6 +46,9 @@
     </div>
 
     <script type="text/javascript">
+      // Expose identity for styleFrame
+      window.isInterwikiFrame = true;
+
       // Get the community of the current page - expected to be either
       // "scp" or "wl"
       var community = getQueryString(location.search, "community");
