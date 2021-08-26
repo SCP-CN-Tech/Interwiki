@@ -75,7 +75,7 @@ function createInterwiki(community, pagename, currentBranchLang) {
   var branches = { wl: wlBranches, scp: scpBranches }[community] || {};
 
   // Construct the function that will resize the frame after changes
-  var site = parent.location.origin;
+  var site = document.referrer;
   var page = location.href.replace(/^.*\//, "/");
   var resize = createResizeIframe(site, page);
 
