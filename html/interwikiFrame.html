@@ -48,12 +48,15 @@
     <script type="text/javascript">
       // Get the community of the current page - expected to be either
       // "scp" or "wl"
-      var community = getQueryString("community");
+      var community = getQueryString(location.search, "community");
 
       // Get the page fullname, but without the default category
       // TODO Maybe try to rename this query parameter to 'fullname' for
       // consistency
-      var pagename = getQueryString("pagename").replace(/^_default:/, "");
+      var pagename = getQueryString(location.search, "pagename").replace(
+        /^_default:/,
+        ""
+      );
 
       // Get the list of branches for the given community
       var branches = { wl: wlBranches, scp: scpBranches }[community] || {};
@@ -63,7 +66,7 @@
 
       // Get the configuration for the current branch
       // TODO Rename "site" to "currentBranch"
-      var siteLang = getQueryString("lang");
+      var siteLang = getQueryString(location.search, "lang");
       var siteData = branches[siteLang];
 
       // Get the Wikidot ID of the current branch
@@ -73,21 +76,10 @@
       // TODO What's this actually needed for?
       var currentBranchId = siteData ? siteData.id : false;
 
-      // Cache of CSS strings that have been added to the stylesheet. Will
-      // be used to ignore later incoming CSS if it matches already-added
-      // CSS, preventing duplication
-      // TODO Should probably use separate <style> elements for this and
-      // then check to see if incoming CSS is identical to one; if it is,
-      // move it to the top.
-      // TODO Keeping all CSS in a single style element will prevent
-      // @imports unless that CSS is at the very top, because @import must
-      // come first.
-      var styleAry = [];
-
       // If provided, use the style parameter to manually set the value of
       // styleType, which will be used to determine the base theme of the
       // interwiki. If not provided, pick a sensible default value.
-      var styleType = getQueryString("style");
+      var styleType = getQueryString(location.search, "style");
       if (styleType == "") {
         styleType = { wl: "wanderers" }[community] || "default";
       }

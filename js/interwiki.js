@@ -23,23 +23,22 @@
  * Retrieves the value of the query parameter in the URL with the
  * given key, if provided, otherwise returns the empty string.
  *
+ * @param {String} query - The URL query.
  * @param {String} name - The name of the parameter to get.
  */
-function getQueryString(name) {
+function getQueryString(query, name) {
   // Get query parameters from the URL
-  var parameters = document.location.search.substr(1).split("&");
-  // Iterate parameters in reverse order so later values override
-  // ones
+  if (query.indexOf("?") === 0) query = query.substring(1);
+  var parameters = query.split("&");
+  // Iterate parameters in reverse so later values override earlier ones
   parameters.reverse();
   // Find the parameter whose key is the given name
   matchingParameter = parameters.find(function (parameter) {
-    return parameter.indexOf(name + "=") != -1;
+    return parameter.indexOf(name + "=") === 0;
   });
-  if (matchingParameter == null) {
-    return "";
-  }
+  if (matchingParameter == null) return "";
   // Return the part of the parameter following the "="
-  return matchingParameter.substring(name.length + 1);
+  return decodeURIComponent(matchingParameter.substring(name.length + 1));
 }
 
 /**
