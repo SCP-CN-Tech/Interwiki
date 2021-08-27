@@ -33,7 +33,9 @@ information about the current page.
 
 ```Soong
 [[module ListPages range="." limit="1"]]
-[[iframe https://SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=COMMUNITY&pagename=%%fullname%%]]
+[[embed]]
+<iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=COMMUNITY&pagename=%%fullname%%" class="html-block-iframe scpnet-interwiki-frame"></iframe>
+[[/embed]]
 [[/module]]
 ```
 
@@ -53,7 +55,17 @@ There are a few placeholders in that URL that must be changed:
 - **`COMMUNITY:`** The community that the current page belongs to. Can be
   either `scp` or `wl`. If your site hosts pages from only one community,
   just add it; if your site hosts pages from both communities, you may wish
-  to use ListPages to detect which one the current page belongs to (see below).
+  to use ListPages to detect which one the current page belongs to (see
+  below).
+
+If you are using the SCP Wiki's copy of `interwikiFrame.html` (and
+`styleFrame.html`), you do not need to upload any files to Wikidot.
+
+Note that the URL in the iframe starts with `//` rather than `http://` or
+`https://`. This is a protocol-relative URL, which will preserve the type of
+connection the user is using, and ensures that the Interwiki works
+regardless of whether the site is configured to use HTTP or HTTPS (or
+both).
 
 <details>
 <summary>
@@ -70,11 +82,15 @@ more than one Interwiki per page.
 
 ```Soong
 [[module ListPages range="." limit="1" category="-wanderers -wanderers-adult"]]
-[[iframe https://SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=scp&pagename=%%fullname%%]]
+[[embed]]
+<iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=scp&pagename=%%fullname%%" class="html-block-iframe scpnet-interwiki-frame"></iframe>
+[[/embed]]
 [[/module]]
 
 [[module ListPages range="." limit="1" category="wanderers wanderers-adult"]]
-[[iframe https://SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=wl&pagename=%%fullname%%]]
+[[embed]]
+<iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=wl&pagename=%%fullname%%" class="html-block-iframe scpnet-interwiki-frame"></iframe>
+[[/embed]]
 [[/module]]
 ```
 
@@ -89,7 +105,9 @@ The Interwiki, by default, does not have any styling. To style it, a
 To add a `styleFrame` to a Wikidot page:
 
 ```Soong
-[[iframe https://SITE.wdfiles.com/local--files/PAGE/styleFrame.html?priority=PRIORITY&theme=THEME&css=CSS style="display: none;"]]
+[[embed]]
+<iframe src="//SITE.wdfiles.com/local--files/PAGE/styleFrame.html?priority=PRIORITY&theme=THEME&css=CSS" style="display: none;"></iframe>
+[[/embed]]
 ```
 
 There are a few placeholders in that URL that must be changed:
@@ -133,10 +151,14 @@ the page `nav:side` of the SCP Wiki:
 
 ```Soong
 [[module ListPages range="." limit="1"]]
-[[iframe https://scp-wiki.wdfiles.com/local--files/nav:side/interwikiFrame.html?lang=en&community=scp&pagename=%%fullname%%]]
+[[embed]]
+<iframe src="//scp-wiki.wdfiles.com/local--files/nav:side/interwikiFrame.html?lang=en&community=scp&pagename=%%fullname%%" class="html-block-iframe scpnet-interwiki-frame"></iframe>
+[[/embed]]
 [[/module]]
 
-[[iframe https://scp-wiki.wdfiles.com/local--files/nav:side/styleFrame.html?priority=0&theme=component:theme style="display: none;"]]
+[[embed]]
+<iframe src="//scp-wiki.wdfiles.com/local--files/nav:side/styleFrame.html?priority=0&theme=component:theme" style="display: none;"></iframe>
+[[/embed]]
 ```
 
 ### Adding additional styling
