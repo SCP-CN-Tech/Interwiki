@@ -191,7 +191,7 @@ function addTranslationLink(pageUrl, branchName, branchLang) {
   // just before it
   menuItems.some(function (menuItem) {
     if (menuItem.getAttribute("name") > branchLang) {
-      menuItem.insertBefore(newMenuItem, menuItem);
+      sideBlock.insertBefore(newMenuItem, menuItem);
       return true;
     }
   });
