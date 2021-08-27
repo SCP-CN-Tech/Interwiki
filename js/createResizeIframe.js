@@ -7,9 +7,10 @@
  * iframes to match its contents.
  *
  * @param {String} site - The base URL of the site.
- * @param {String} page - The fullname of the parent page.
+ * @param {String} frameId - The last segment of the URL of the interwiki
+ * iframe, used by Wikidot to identify it when resizing it.
  */
-function createResizeIframe(site, page) {
+function createResizeIframe(site, frameId) {
   var container = document.getElementById("resizer-container");
   var resizer = document.createElement("iframe");
   resizer.style.display = "none";
@@ -17,7 +18,7 @@ function createResizeIframe(site, page) {
 
   // The resizer iframe must be on the same protocol + domain as the parent
   site = site.replace(/^https?:/, "");
-  if (page[0] !== "/") page = "/" + page;
+  if (frameId[0] !== "/") frameId = "/" + frameId;
 
   return function () {
     // Measure from the top of the document to the iframe container to get
@@ -33,6 +34,6 @@ function createResizeIframe(site, page) {
       cacheBreak +
       "#" +
       height +
-      page;
+      frameId;
   };
 }
