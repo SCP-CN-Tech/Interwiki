@@ -41,6 +41,11 @@ function addTranslations(branches, currentBranchLang, pagename, resize) {
   // Get the config for the current branch, if configured
   var currentBranch = branches[currentBranchLang] || {};
 
+  // Hide the side block by default (will be unhidden if there is at least
+  // one translation)
+  var sideBlock = document.getElementsByClassName("side-block")[0];
+  sideBlock.style.display = "none";
+
   // Construct the click-to-refresh link
   var refreshLink = document.getElementById("refresh-link");
   refreshLink.innerHTML = currentBranch.head;
@@ -148,7 +153,12 @@ function addTranslationForBranch(
  */
 function addTranslationLink(pageUrl, branchName, branchLang) {
   var sideBlock = document.getElementsByClassName("side-block")[0];
-  var menuItems = sideBlock.getElementsByClassName("menu-item");
+  var menuItems = Array.prototype.slice.call(
+    sideBlock.getElementsByClassName("menu-item")
+  );
+
+  // There is a translation, so unhide the side block if it is hidden
+  sideBlock.style.display = "";
 
   // Create the new menu item
   var newMenuItem = document.createElement("div");
@@ -174,13 +184,13 @@ function addTranslationLink(pageUrl, branchName, branchLang) {
   newMenuItem.appendChild(link);
 
   // Add the new menu item to the end of the side block by default
-  menuItems.appendChild(newMenuItem);
+  sideBlock.appendChild(newMenuItem);
   // Then find the first existing menu item whose lang code is
   // alphabetically greater than the new item, and move the new item to
   // just before it
   menuItems.some(function (menuItem) {
     if (menuItem.getAttribute("name") > branchLang) {
-      menuItems.insertBefore(newMenuItem, menuItem);
+      menuItem.insertBefore(newMenuItem, menuItem);
       return true;
     }
   });
