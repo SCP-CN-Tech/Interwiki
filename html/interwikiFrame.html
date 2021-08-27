@@ -40,15 +40,17 @@
     <script type="text/javascript">
       /* global getQueryString, createInterwiki */
 
-      addEventListener("DOMContentLoaded", function () {
-        // Expose identity for styleFrame
-        window.isInterwikiFrame = true;
+      "use strict";
 
+      addEventListener("DOMContentLoaded", function () {
         var community = getQueryString(location.search, "community");
         var pagename = getQueryString(location.search, "pagename");
         var lang = getQueryString(location.search, "lang");
 
         createInterwiki(community, pagename, lang);
+
+        // Expose identity for styleFrame
+        window.isInterwikiFrame = true;
       });
     </script>
   </head>
