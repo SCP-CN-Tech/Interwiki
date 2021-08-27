@@ -1,14 +1,24 @@
 # Interwiki
 
-This is the Interwiki module for the [SCP Wiki](https://scpwiki.com), the
-English-speaking branch of SCP, used for displaying translations of
-articles in the [international SCP community](http://scp-int.wikidot.com/).
+This is the Interwiki module made by the [SCP Wiki](https://scpwiki.com),
+the English-speaking branch of SCP, for all branches of the [international
+SCP](http://scp-int.wikidot.com/) and [Wanderers'
+Library](http://wanderers-library.wikidot.com/) communities.
 
 This Interwiki module is [forked](https://github.com/SCP-CN-Tech/Interwiki)
 from [SCP 基金会](http://scp-wiki-cn.wikidot.com/), the Chinese branch of
-SCP, and was originally made by 7happy7.
+SCP, and was originally made by **[@7happy7](https://github.com/7happy7)**
+and **[@Sekai-s](https://github.com/Sekai-s)**.
 
-# Deployment
+The Interwiki is for cross-linking translations of articles between
+international branches. Placed on any page in the SCP or WL community, the
+Interwiki will list pages with a matching 'fullname' / 'UNIX name' / URL
+from other branches of that community.
+
+The Interwiki can be styled with CSS and has no limit on the number of
+styles that can be applied to it.
+
+# Usage
 
 To use the Interwiki on your [Wikidot](https://www.wikidot.com/) site:
 
