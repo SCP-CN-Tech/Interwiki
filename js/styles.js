@@ -109,10 +109,10 @@ function insertStyle(newPriority, newStylingElement) {
       if (tagName === newTagName) {
         // Two elements of the same tag with the same priority are not
         // allowed - raise a warning about it, but add them anyway
-        console.warn(
+        console.error(
           "Interwiki: encountered two " +
             (tagName === "LINK" ? "themes" : "CSS styles") +
-            "with the same priority (" +
+            " with the same priority (" +
             priority +
             ") - result may not be as expected"
         );
