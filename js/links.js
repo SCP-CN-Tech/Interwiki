@@ -48,12 +48,13 @@ function addTranslations(branches, currentBranchLang, pagename, resize) {
 
   // Construct the click-to-refresh link
   var refreshLink = document.getElementById("refresh-link");
+  refreshLink.addEventListener("click", function () {
+    location.reload();
+  });
   refreshLink.innerHTML = currentBranch.head;
-  refreshLink.setAttribute(
-    "title",
+  refreshLink.title =
     // TODO Make the string here translatable
-    "Click to refresh (Last refresh：" + new Date().toLocaleString() + ")"
-  );
+    "Click to refresh (Last refresh：" + new Date().toLocaleString() + ")";
 
   // For all configured sites that are not the current site, request
   // translation data about this page
