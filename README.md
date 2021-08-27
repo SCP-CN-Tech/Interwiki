@@ -164,6 +164,18 @@ In this example, the theme `theme:my-theme` is an extension to Sigma-9
 (which, being the base theme of the site, has a priority number of 0), so
 its priority is 1 (Sigma-9's priority plus one).
 
+### Writing CSS
+
+The internal structure of the Interwiki is designed to be consistent with
+the standard sidebar used on SCP sites.
+
+The Interwiki is a single `html#interwiki body div.side-block`. Inside is a
+`div.heading p a#refresh-link`, which is the title of the side block.
+Beneath the `.heading`, a series of `div.menu-item[name]` will be created,
+with the value of `name` corresponding to the branch's language code. Inside
+each `.menu-item` is an `img.image` containing the Sigma-9 bullet point,
+followed by an `a[href]` for the translation link.
+
 # Development
 
 Install locally with [NPM](https://www.npmjs.com/):
