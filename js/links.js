@@ -55,7 +55,13 @@ function addTranslations(branches, currentBranchLang, pagename, resize) {
   Object.keys(branches).forEach(function (branchLang) {
     if (branchLang === currentBranchLang) return;
     var branch = branches[branchLang];
-    addTranslationForBranch(branchLang, branch, pagename, resize);
+    addTranslationForBranch(
+      currentBranch,
+      branchLang,
+      branch,
+      pagename,
+      resize
+    );
   });
 }
 
@@ -124,10 +130,10 @@ function addTranslationForBranch(
           targetBranch.name,
           targetBranchLang
         );
-      }
 
-      // Resize the iframe to account for the new link
-      resize();
+        // Resize the iframe to account for the new link
+        resize();
+      }
     }
   );
 }

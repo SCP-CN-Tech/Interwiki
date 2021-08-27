@@ -36,35 +36,31 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/js/links.js"
     ></script>
-  </head>
-
-  <body>
-    <div class="side-block" style="display: none">
-      <div class="heading">
-        <p>
-          <a
-            id="refresh-link"
-            onclick="window.location.reload(true)"
-            title=""
-          ></a>
-        </p>
-      </div>
-    </div>
 
     <script type="text/javascript">
       /* global getQueryString, createInterwiki */
 
-      // Expose identity for styleFrame
-      window.isInterwikiFrame = true;
-
-      var community = getQueryString(location.search, "community");
-      var pagename = getQueryString(location.search, "pagename");
-      var lang = getQueryString(location.search, "lang");
-
       addEventListener("DOMContentLoaded", function () {
+        // Expose identity for styleFrame
+        window.isInterwikiFrame = true;
+
+        var community = getQueryString(location.search, "community");
+        var pagename = getQueryString(location.search, "pagename");
+        var lang = getQueryString(location.search, "lang");
+
         createInterwiki(community, pagename, lang);
       });
     </script>
-    <div id="iframeset"></div>
+  </head>
+
+  <body style="margin: 0">
+    <div class="side-block">
+      <div class="heading">
+        <p>
+          <a id="refresh-link"></a>
+        </p>
+      </div>
+    </div>
+    <div id="resizer-container"></div>
   </body>
 </html>
