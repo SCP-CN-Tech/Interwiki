@@ -127,7 +127,7 @@ There are a few placeholders in that URL that must be changed:
   already, so you can just set it to that, unless you wish to upload the
   file to your wiki yourself.
 - **`PAGE`:** The fullname (a.k.a. page UNIX name) of the page that
-  `styleFrame.html` has been uploaded to. This SCP wiki has this file
+  `styleFrame.html` has been uploaded to. The SCP wiki has this file
   uploaded to the page at fullname `nav:side`.
 - **`PRIORITY`:** The priority of the styling that this `styleFrame`
   applies. Corresponds to the internal sort order of the CSS. The base
@@ -135,10 +135,16 @@ There are a few placeholders in that URL that must be changed:
   other CSS theme should be the priority number of the theme it extends,
   plus one. The Interwiki will raise a warning in the browser console if it
   encounters two styles with the same priority number.
-- **`THEME`:** The fullname of a page on the current site. The first [code
-  block](https://www.wikidot.com/doc-wiki-syntax:code-blocks) on that page
-  will be imported as CSS. Optionally, `/code/n` may be appended to the
-  fullname to get the `n`th code block.
+- **`THEME`:** A pointer to a CSS stylesheet to apply to the Interwiki. May
+  be one of the following values:
+  - The fullname of a page on the same site as the Interwiki's language
+    code. The first [code
+    block](https://www.wikidot.com/doc-wiki-syntax:code-blocks) on that
+    page will be imported as CSS.
+  - A fullname of page on that site, with `/code/n` appended to refer to
+    the `n`th code block.
+  - A full URL to any CSS stylesheet on any site. (Useful for e.g. sandbox
+    wikis that do not have their own Interwiki configuration.)
 - **`CSS`:** [URI-encoded](https://meyerweb.com/eric/tools/dencoder/) CSS
   to apply directly to the Interwiki.
 
