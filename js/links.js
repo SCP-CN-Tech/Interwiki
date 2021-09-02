@@ -226,7 +226,7 @@ function findPagesInSiteStartingWith(siteId, fullname, callback) {
       try {
         if (request.status === 200) {
           var response = JSON.parse(request.responseText);
-          // {"pages":[{"unix_name":"scp-xxx","title":"SCP-XXX"}]}
+          // Format: {"pages":[{"unix_name":"scp-xxx","title":"SCP-XXX"}]}
           fullnames = response.pages.map(function (page) {
             return page.unix_name;
           });
