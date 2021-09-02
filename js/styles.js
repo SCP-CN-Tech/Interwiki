@@ -176,22 +176,37 @@ function duplicatesStyle(priority, value) {
  *   number (of the form <fullname>/code/n), where the nth code block on
  *   that page will be parsed as a CSS stylesheet.
  *
+ * @param {String} siteUrl - The base URL of the site matching the
+ * interwikiFrame's language code, which will be used to look up the theme
+ * the case that a full URL was not provided.
  * @param {String} theme - An indicator of where a CSS stylesheet can be
  * found.
  */
-function urlFromTheme(theme) {
+function urlFromTheme(siteUrl, theme) {
   // If the theme is already a full URL, return it
   if (theme.indexOf("http") === 0 || theme.indexOf("//") === 0) {
     return theme;
   }
+
+  // If the interwiki's site URL is not known, the full URL for a relative
+  // theme cannot be constructed
+  if (!siteUrl) {
+    console.error(
+      "Interwiki: could not resolve relative fullname (" +
+        theme +
+        ") for unconfigured site. Consider using a full URL instead."
+    );
+    return "";
+  }
+
   // Assume it's a fullname
   if (theme.indexOf("/") === -1) {
-    return "/local--code/" + theme + "/1";
+    return siteUrl + "/local--code/" + theme + "/1";
   }
   // Assume of the form <fullname>/code/1
   var themeParts = theme.split("/");
   if (themeParts.length >= 3 && themeParts[1] === "code") {
-    return "/local--code/" + themeParts[0] + "/" + themeParts[2];
+    return siteUrl + "/local--code/" + themeParts[0] + "/" + themeParts[2];
   }
   // If none of those worked, report the error
   console.error("Interwiki: unknown theme location:" + theme);
