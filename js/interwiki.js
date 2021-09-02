@@ -1,7 +1,7 @@
 /* global
   wlBranches,
   scpBranches,
-  requestStyleChange,
+  createRequestStyleChange,
   addTranslations,
   createResizeIframe
 */
@@ -50,7 +50,7 @@ function pullStyles() {
   Array.prototype.slice.call(parent).forEach(function (frame) {
     try {
       if (frame.isStyleFrame) {
-        requestStyleChange(frame.location.search);
+        window.requestStyleChange(frame.location.search);
       }
     } catch (error) {
       // styleFrames that have not finished initialising will push their
@@ -74,10 +74,17 @@ function createInterwiki(community, pagename, currentBranchLang) {
   // Get the list of branches for the given community
   var branches = { wl: wlBranches, scp: scpBranches }[community] || {};
 
+  // Get the config for the current branch, if configured
+  var currentBranch = branches[currentBranchLang] || {};
+
   // Construct the function that will resize the frame after changes
   var site = document.referrer;
   var frameId = location.href.replace(/^.*\//, "/");
   var resize = createResizeIframe(site, frameId);
+
+  // Construct the function that will be called internally and by
+  // styleFrames to request style changes
+  window.requestStyleChange = createRequestStyleChange(currentBranch.url || "");
 
   pullStyles();
   addTranslations(branches, currentBranchLang, pagename, resize);

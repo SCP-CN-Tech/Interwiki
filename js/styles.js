@@ -1,27 +1,36 @@
 /* global getQueryString */
-/* exported requestStyleChange */
+/* exported createRequestStyleChange */
 
 "use strict";
 
 /**
- * Handles a style request from a styleFrame.
+ * Constructs the handler for requesting style changes to the
+ * interwikiFrame.
  *
- * @param {String} request - A URL query originating from a styleFrame,
- * requesting a style change for the interwikiFrame.
+ * @param {String} siteUrl - The base URL of the interwiki's configured
+ * site.
  */
-function requestStyleChange(request) {
-  var priorityRaw = getQueryString(request, "priority");
-  var priority = Number(priorityRaw);
-  if (isNaN(priority)) {
-    console.error("Interwiki: rejected style with priority" + priorityRaw);
-    return;
-  }
+function createRequestStyleChange(siteUrl) {
+  /**
+   * Handles a style request from a styleFrame.
+   *
+   * @param {String} request - A URL query originating from a styleFrame,
+   * requesting a style change for the interwikiFrame.
+   */
+  return function requestStyleChange(request) {
+    var priorityRaw = getQueryString(request, "priority");
+    var priority = Number(priorityRaw);
+    if (isNaN(priority)) {
+      console.error("Interwiki: rejected style with priority" + priorityRaw);
+      return;
+    }
 
-  var theme = getQueryString(request, "theme");
-  if (theme) addExternalStyle(priority, urlFromTheme(theme));
+    var theme = getQueryString(request, "theme");
+    if (theme) addExternalStyle(priority, urlFromTheme(siteUrl, theme));
 
-  var css = getQueryString(request, "css");
-  if (css) addInternalStyle(priority, css);
+    var css = getQueryString(request, "css");
+    if (css) addInternalStyle(priority, css);
+  };
 }
 
 /**
