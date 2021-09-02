@@ -181,7 +181,9 @@ function duplicatesStyle(priority, value) {
  */
 function urlFromTheme(theme) {
   // If the theme is already a full URL, return it
-  if (theme.indexOf("http") === 0 || theme.indexOf("//") === 0) return theme;
+  if (theme.indexOf("http") === 0 || theme.indexOf("//") === 0) {
+    return theme;
+  }
   // Assume it's a fullname
   if (theme.indexOf("/") === -1) {
     return "/local--code/" + theme + "/1";
