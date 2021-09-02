@@ -233,6 +233,10 @@ function findPagesInSiteStartingWith(siteId, fullname, callback) {
         }
       } catch (error) {
         // Parsing failed - assume there are no matching pages
+        console.error(
+          "Interwiki: lookup failed for " + siteId + "/" + fullname
+        );
+        console.error(error);
       } finally {
         callback(fullnames);
       }
