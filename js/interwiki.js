@@ -55,6 +55,10 @@ function pullStyles() {
     } catch (error) {
       // styleFrames that have not finished initialising will push their
       // styles to the interwikiFrame when they are ready
+      if (!(error instanceof DOMException)) {
+        // All other errors must be reported
+        throw error;
+      }
     }
   });
 }

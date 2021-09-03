@@ -25,6 +25,10 @@ To be able to communicate, the two must be on the on the same host.
           // If an interwikiFrame in the parent isn't ready to receive a style
           // change request, that's fine - it will pull the style from this
           // styleFrame when it's ready
+          if (!(error instanceof DOMException)) {
+            // All other errors must be reported
+            throw error;
+          }
         }
       });
     </script>
