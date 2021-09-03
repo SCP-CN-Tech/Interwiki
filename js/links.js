@@ -46,13 +46,13 @@ function addTranslations(branches, currentBranchLang, pagename, resize) {
   var sideBlock = document.getElementsByClassName("side-block")[0];
   sideBlock.style.display = "none";
 
-  // Construct the click-to-refresh link
-  var refreshLink = document.getElementById("refresh-link");
-  refreshLink.addEventListener("click", function () {
+  // Construct the click-to-refresh header
+  var header = document.querySelector(".heading p");
+  header.innerText = currentBranch.head;
+  header.addEventListener("click", function () {
     location.reload();
   });
-  refreshLink.innerHTML = currentBranch.head;
-  refreshLink.title =
+  header.title =
     // TODO Make the string here translatable
     "Click to refresh (Last refresh：" + new Date().toLocaleString() + ")";
 

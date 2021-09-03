@@ -208,10 +208,10 @@ The internal structure of the Interwiki is designed to be consistent with
 the standard sidebar used on SCP sites.
 
 The Interwiki is a single `html#interwiki body div.side-block`. Inside is a
-`div.heading p a#refresh-link`, which is the title of the side block.
-Beneath the `.heading`, a series of `div.menu-item[name]` will be created,
-with the value of `name` corresponding to the branch's language code. Inside
-each `.menu-item` is an `img.image` containing the Sigma-9 bullet point,
+`div.heading p`, which is the title of the side block. Beneath the
+`.heading`, a series of `div.menu-item[name]` will be created, with the
+value of `name` corresponding to the branch's language code. Inside each
+`.menu-item` is an `img.image` containing the Sigma-9 bullet point,
 followed by an `a[href]` for the translation link.
 
 # Development
