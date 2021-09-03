@@ -1,5 +1,5 @@
 /* global getQueryString */
-/* exported createRequestStyleChange */
+/* exported createRequestStyleChange, addExternalStyle */
 
 "use strict";
 

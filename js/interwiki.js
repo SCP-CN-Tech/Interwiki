@@ -2,6 +2,7 @@
   wlBranches,
   scpBranches,
   createRequestStyleChange,
+  addExternalStyle,
   addTranslations,
   createResizeIframe
 */
@@ -71,8 +72,16 @@ function pullStyles() {
  * @param {String} pagename - The Wikidot fullname of the current page.
  * @param {String} currentBranchLang - The language code of the current branch
  * of the given community.
+ * @param {String} preventWikidotBaseStyle - Whether to prevent the
+ * addition of Wikidot's base style to the interwiki. If any value other
+ * than the string "true", the style will be added with priority -1.
  */
-function createInterwiki(community, pagename, currentBranchLang) {
+function createInterwiki(
+  community,
+  pagename,
+  currentBranchLang,
+  preventWikidotBaseStyle
+) {
   pagename = pagename.replace(/^_default:/, "");
 
   // Get the list of branches for the given community
@@ -89,6 +98,14 @@ function createInterwiki(community, pagename, currentBranchLang) {
   // Construct the function that will be called internally and by
   // styleFrames to request style changes
   window.requestStyleChange = createRequestStyleChange(currentBranch.url || "");
+
+  // Add Wikidot's base style unless instructed otherwise
+  if (preventWikidotBaseStyle !== "true") {
+    addExternalStyle(
+      -1,
+      "//d3g0gp89917ko0.cloudfront.net/v--3e3a6f7dbcc9/common--theme/base/css/style.css"
+    );
+  }
 
   pullStyles();
   addTranslations(branches, currentBranchLang, pagename, resize);

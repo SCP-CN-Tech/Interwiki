@@ -108,9 +108,9 @@ more than one Interwiki per page.
 
 ## Styling the Interwiki
 
-The Interwiki, by default, does not have any styling. To style it, a
-`styleFrame` must be added. A `styleFrame` applies CSS styling to the
-`interwikiFrame`.
+The Interwiki, by default, only has default Wikidot styling. To style it
+further, a `styleFrame` must be added. A `styleFrame` applies CSS styling
+to the `interwikiFrame`.
 
 To add a `styleFrame` to a Wikidot page:
 

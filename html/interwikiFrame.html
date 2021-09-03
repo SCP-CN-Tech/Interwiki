@@ -46,8 +46,12 @@
         var community = getQueryString(location.search, "community");
         var pagename = getQueryString(location.search, "pagename");
         var lang = getQueryString(location.search, "lang");
+        var preventWikidotBaseStyle = getQueryString(
+          location.search,
+          "preventWikidotBaseStyle"
+        );
 
-        createInterwiki(community, pagename, lang);
+        createInterwiki(community, pagename, lang, preventWikidotBaseStyle);
 
         // Expose identity for styleFrame
         window.isInterwikiFrame = true;
