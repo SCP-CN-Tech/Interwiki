@@ -135,7 +135,7 @@ function insertStyle(newPriority, newStylingElement) {
     // Otherwise, if the new priority is less than the current priority (or
     // after falling back from the equality case), insert the new element
     // before the one with higher priority
-    stylingElement.insertBefore(newStylingElement);
+    document.head.insertBefore(newStylingElement, stylingElement);
     return true;
   });
 
