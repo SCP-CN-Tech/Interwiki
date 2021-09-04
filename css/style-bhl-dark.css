@@ -1,9 +1,9 @@
 .side-block {
-	--swatch-text-tertiary-color: var(--swatch-menutxt-light-color);
-	--sideblock-heading-border-color: var(--bright-accent);
-	--sideblock-heading-text-color: var(--swatch-text-tertiary-color);
-	--sidebar-border-color: var(--swatch-primary), 0.08;
-	--sidebar-links-text: var(--swatch-text-tertiary-color);
-	--sidebar-links-hover-bg-color: var(--bright-accent);
-	--sidebar-links-hover-text-color: var(--swatch-text-tertiary-color);
+  --swatch-text-tertiary-color: var(--swatch-menutxt-light-color);
+  --sideblock-heading-border-color: var(--bright-accent);
+  --sideblock-heading-text-color: var(--swatch-text-tertiary-color);
+  --sidebar-border-color: var(--swatch-primary), 0.08;
+  --sidebar-links-text: var(--swatch-text-tertiary-color);
+  --sidebar-links-hover-bg-color: var(--bright-accent);
+  --sidebar-links-hover-text-color: var(--swatch-text-tertiary-color);
 }
