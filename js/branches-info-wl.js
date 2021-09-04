@@ -4,7 +4,14 @@ var IntWL = {
     head: "其他语言",
     url: "https://scp-wiki-cn.wikidot.com/",
     id: "530812",
-    category: "wanderers",
+    category: "wanderers:",
+  },
+  cs: {
+    name: "Čeština",
+    head: "V jiných jazycích",
+    url: "https://wanderers-library-cs.wikidot.com/",
+    id: "4600566",
+    category: "",
   },
   en: {
     name: "English",
@@ -16,9 +23,9 @@ var IntWL = {
   jp: {
     name: "日本語",
     head: "他言語版",
-    url: "https://scp-jp.wikidot.com/",
-    id: "578002",
-    category: "wanderers",
+    url: "https://wanderers-library-jp.wikidot.com/",
+    id: "4600658",
+    category: "",
   },
   ko: {
     name: "한국어",
