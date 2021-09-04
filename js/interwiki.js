@@ -97,7 +97,10 @@ function createInterwiki(
 
   // Construct the function that will be called internally and by
   // styleFrames to request style changes
-  window.requestStyleChange = createRequestStyleChange(currentBranch.url || "");
+  window.requestStyleChange = createRequestStyleChange(
+    currentBranch.url || "",
+    resize
+  );
 
   // Add Wikidot's base style unless instructed otherwise
   if (preventWikidotBaseStyle !== "true") {

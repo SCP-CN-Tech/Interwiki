@@ -9,8 +9,10 @@
  *
  * @param {String} siteUrl - The base URL of the interwiki's configured
  * site.
+ * @param {Function} resize - A function to call to resize the interwiki
+ * iframe after adding new CSS.
  */
-function createRequestStyleChange(siteUrl) {
+function createRequestStyleChange(siteUrl, resize) {
   /**
    * Handles a style request from a styleFrame.
    *
@@ -30,6 +32,11 @@ function createRequestStyleChange(siteUrl) {
 
     var css = getQueryString(request, "css");
     if (css) addInternalStyle(priority, css);
+
+    // There is no reliable way to detect when the styles have been both
+    // loaded and applied to the document, so wait a tick before resizing
+    // the iframe to account for any new styles
+    if (theme || css) setTimeout(resize, 250);
   };
 }
 
