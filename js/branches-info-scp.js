@@ -1,4 +1,8 @@
-var Int = {
+/* exported scpBranches */
+
+"use strict";
+
+var scpBranches = {
   cn: {
     name: "中文",
     head: "其他语言",
