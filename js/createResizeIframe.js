@@ -4,7 +4,7 @@
 
 /**
  * Constructs and returns a function that, when called, resizes the current
- * iframes to match its contents.
+ * iframes to match its contents. The function is debounced.
  *
  * @param {String} site - The base URL of the site.
  * @param {String} frameId - The last segment of the URL of the interwiki
@@ -20,7 +20,7 @@ function createResizeIframe(site, frameId) {
   site = site.replace(/^https?:/, "");
   if (frameId[0] !== "/") frameId = "/" + frameId;
 
-  return function () {
+  return debounce(function () {
     // Measure from the top of the document to the iframe container to get
     // the document height - this takes into account inner margins, unlike
     // e.g. document.body.clientHeight
@@ -35,5 +35,22 @@ function createResizeIframe(site, frameId) {
       "#" +
       height +
       frameId;
+  }, 250);
+}
+
+/**
+ * Debounces a function, delaying its execution until a certain amount of
+ * time has passed since the last time it was called, and aggregating all
+ * calls made in that time into one.
+ *
+ * @param {Function} func - The function to call.
+ * @param {Number} wait - The number of milliseconds to wait after any call
+ * to the debounced function before executing it.
+ */
+function debounce(func, wait) {
+  var timeout = 0;
+  return function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(func, wait);
   };
 }
