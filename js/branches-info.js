@@ -58,14 +58,14 @@ var Int = {
   ko: {
     name: "한국어",
     head: "다른 언어",
-    url: "https://ko.scp-wiki.net/",
+    url: "http://ko.scp-wiki.net/",
     id: "486864",
     category: "",
   },
   pl: {
     name: "Polski",
     head: "W innych językach",
-    url: "https://scp-wiki.net.pl/",
+    url: "http://scp-wiki.net.pl/",
     id: "647733",
     category: "",
   },
@@ -79,14 +79,14 @@ var Int = {
   ru: {
     name: "Русский",
     head: "На других языках",
-    url: "https://scpfoundation.net/",
+    url: "http://scpfoundation.net/",
     id: "169125",
     category: "",
   },
   es: {
     name: "Español",
     head: "En otros idiomas",
-    url: "https://scp-es.com/",
+    url: "http://scp-es.com/",
     id: "560484",
     category: "",
   },
