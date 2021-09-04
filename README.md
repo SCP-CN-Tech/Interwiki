@@ -214,6 +214,9 @@ value of `name` corresponding to the branch's language code. Inside each
 `.menu-item` is an `img.image` containing the Sigma-9 bullet point,
 followed by an `a[href]` for the translation link.
 
+Do not add margin or padding to either `html` or `body`, as this will cause
+a vertical scrollbar to appear on the Interwiki.
+
 # Development
 
 Install locally with [NPM](https://www.npmjs.com/):
