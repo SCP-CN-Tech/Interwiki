@@ -44,7 +44,7 @@ information about the current page.
 ```Soong
 [[module ListPages range="." limit="1"]]
 [[embed]]
-<iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=COMMUNITY&pagename=%%fullname%%" class="html-block-iframe scpnet-interwiki-frame"></iframe>
+<iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=COMMUNITY&pagename=%%fullname%%" allowtransparency="true" class="html-block-iframe scpnet-interwiki-frame"></iframe>
 [[/embed]]
 [[/module]]
 ```
