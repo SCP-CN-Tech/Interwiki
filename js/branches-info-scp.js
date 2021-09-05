@@ -19,7 +19,7 @@ var scpBranches = {
   },
   en: {
     name: "English",
-    head: "Languages",
+    head: "In other languages",
     url: "https://scp-wiki.wikidot.com/",
     id: "66711",
     category: "",
