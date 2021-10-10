@@ -79,6 +79,13 @@ connection the user is using, and ensures that the Interwiki works
 regardless of whether the site is configured to use HTTP or HTTPS (or
 both).
 
+Note the `interwiki-stylable` class in the wrapping container. This
+indicates to CSS themes that the interwiki is capable of being styled
+itself, and does not need to have styles externally approximated (e.g. by
+using CSS filters). This is used by themes targeting multiple sites with
+Interwikis that may or may not be this new Interwiki, such as Black
+Highlighter, for example.
+
 <details>
 <summary>
 <b>Example of using ListPages to determine community</b>
