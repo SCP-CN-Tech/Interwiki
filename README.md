@@ -68,7 +68,7 @@ There are a few placeholders in that URL that must be changed:
   either `scp` or `wl`. If your site hosts pages from only one community,
   just add it; if your site hosts pages from both communities, you may wish
   to use ListPages to detect which one the current page belongs to (see
-  below).
+  collapsible below).
 
 If you are using the SCP Wiki's copy of `interwikiFrame.html` (and
 `styleFrame.html`), you do not need to upload any files to Wikidot.
@@ -81,7 +81,7 @@ both).
 
 <details>
 <summary>
-Example of using ListPages to determine community
+<b>Example of using ListPages to determine community</b>
 </summary>
 
 This example uses two ListPages modules with category filters to determine
