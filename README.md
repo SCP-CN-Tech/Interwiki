@@ -42,11 +42,13 @@ module](https://www.wikidot.com/doc-modules:listpages-module) to pass it
 information about the current page.
 
 ```Soong
+[[div class="scpnet-interwiki-wrapper interwiki-stylable"]]
 [[module ListPages range="." limit="1"]]
 [[embed]]
 <iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=COMMUNITY&pagename=%%fullname%%" allowtransparency="true" class="html-block-iframe scpnet-interwiki-frame"></iframe>
 [[/embed]]
 [[/module]]
+[[/div]]
 ```
 
 There are a few placeholders in that URL that must be changed:
@@ -66,7 +68,7 @@ There are a few placeholders in that URL that must be changed:
   either `scp` or `wl`. If your site hosts pages from only one community,
   just add it; if your site hosts pages from both communities, you may wish
   to use ListPages to detect which one the current page belongs to (see
-  below).
+  collapsible below).
 
 If you are using the SCP Wiki's copy of `interwikiFrame.html` (and
 `styleFrame.html`), you do not need to upload any files to Wikidot.
@@ -77,9 +79,16 @@ connection the user is using, and ensures that the Interwiki works
 regardless of whether the site is configured to use HTTP or HTTPS (or
 both).
 
+Note the `interwiki-stylable` class in the wrapping container. This
+indicates to CSS themes that the interwiki is capable of being styled
+itself, and does not need to have styles externally approximated (e.g. by
+using CSS filters). This is used by themes targeting multiple sites with
+Interwikis that may or may not be this new Interwiki, such as Black
+Highlighter, for example.
+
 <details>
 <summary>
-Example of using ListPages to determine community
+<b>Example of using ListPages to determine community</b>
 </summary>
 
 This example uses two ListPages modules with category filters to determine
@@ -91,6 +100,7 @@ The category filters are mutually-exclusive, so this will never produce
 more than one Interwiki per page.
 
 ```Soong
+[[div class="scpnet-interwiki-wrapper interwiki-stylable"]]
 [[module ListPages range="." limit="1" category="-wanderers -wanderers-adult"]]
 [[embed]]
 <iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=scp&pagename=%%fullname%%" class="html-block-iframe scpnet-interwiki-frame"></iframe>
@@ -102,6 +112,7 @@ more than one Interwiki per page.
 <iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=wl&pagename=%%fullname%%" class="html-block-iframe scpnet-interwiki-frame"></iframe>
 [[/embed]]
 [[/module]]
+[[/div]]
 ```
 
 </details>
