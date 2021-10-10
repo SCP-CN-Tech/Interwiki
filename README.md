@@ -42,11 +42,13 @@ module](https://www.wikidot.com/doc-modules:listpages-module) to pass it
 information about the current page.
 
 ```Soong
+[[div class="scpnet-interwiki-wrapper interwiki-stylable"]]
 [[module ListPages range="." limit="1"]]
 [[embed]]
 <iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=COMMUNITY&pagename=%%fullname%%" allowtransparency="true" class="html-block-iframe scpnet-interwiki-frame"></iframe>
 [[/embed]]
 [[/module]]
+[[/div]]
 ```
 
 There are a few placeholders in that URL that must be changed:
@@ -91,6 +93,7 @@ The category filters are mutually-exclusive, so this will never produce
 more than one Interwiki per page.
 
 ```Soong
+[[div class="scpnet-interwiki-wrapper interwiki-stylable"]]
 [[module ListPages range="." limit="1" category="-wanderers -wanderers-adult"]]
 [[embed]]
 <iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=scp&pagename=%%fullname%%" class="html-block-iframe scpnet-interwiki-frame"></iframe>
@@ -102,6 +105,7 @@ more than one Interwiki per page.
 <iframe src="//SITE.wdfiles.com/local--files/PAGE/interwikiFrame.html?lang=LANG&community=wl&pagename=%%fullname%%" class="html-block-iframe scpnet-interwiki-frame"></iframe>
 [[/embed]]
 [[/module]]
+[[/div]]
 ```
 
 </details>
