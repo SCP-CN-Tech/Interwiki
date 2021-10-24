@@ -103,6 +103,13 @@ var Int = {
         url: "https://scp-ukrainian.wikidot.com/",
         id: "1398197",
         category: ""
+    },
+    "vn": {
+        name: "Tiếng Việt",
+        head: "Languages",
+        url: "https://scp-vn.wikidot.com/",
+        id: "836589",
+        category: ""
     }
 };
 
