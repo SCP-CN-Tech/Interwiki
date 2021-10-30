@@ -115,4 +115,11 @@ var scpBranches = {
     id: "3947998",
     category: "",
   },
+  vn: {
+    name: "Tiếng Việt",
+    head: "Ngôn ngữ",
+    url: "https://scp-vn.wikidot.com/",
+    id: "836589",
+    category: "",
+  }
 };
