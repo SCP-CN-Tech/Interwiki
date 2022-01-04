@@ -106,7 +106,7 @@ var Int = {
     },
     "vn": {
         name: "Tiếng Việt",
-        head: "Languages",
+        head: "Ngôn ngữ",
         url: "https://scp-vn.wikidot.com/",
         id: "836589",
         category: ""
