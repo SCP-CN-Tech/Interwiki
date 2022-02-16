@@ -7,6 +7,7 @@
  * @param {String} pageUrl
  * @param {String} branchName
  * @param {String} branchLang
+ * @param {Boolean} isOriginal
  */
 
 /**
@@ -19,8 +20,8 @@
  * target page.
  * @param {String} fullname - The substring to compare fullnames against.
  * If an underscore "_" is provided, all pages on the site will match.
- * @param {addLinkCallback} addLink - A function that will be
- * called for each found translation.
+ * @param {addLinkCallback} addLink - A function that will be called for
+ * each found translation.
  */
 function wikidotLookup(currentBranch, branches, fullname, addLink) {
   Object.keys(branches).forEach(function (branchLang) {
@@ -99,7 +100,8 @@ function addTranslationForBranch(
         addLink(
           targetBranch.url + targetFullname,
           targetBranch.name,
-          targetBranchLang
+          targetBranchLang,
+          false // Cannot distinguish original translation
         );
       }
     }

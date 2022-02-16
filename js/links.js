@@ -71,8 +71,10 @@ function addTranslations(branches, currentBranchLang, pagename, resize) {
  * @param {String} pageUrl - The URL of the translation to link to.
  * @param {String} branchName - The name of the branch.
  * @param {String} branchLang - The language code of the branch.
+ * @param {Boolean} isOriginal - Whether this link is for the original
+ * article rather than a translation.
  */
-function addTranslationLink(pageUrl, branchName, branchLang) {
+function addTranslationLink(pageUrl, branchName, branchLang, isOriginal) {
   var sideBlock = document.getElementsByClassName("side-block")[0];
   var menuItems = Array.prototype.slice.call(
     sideBlock.getElementsByClassName("menu-item")
@@ -84,6 +86,7 @@ function addTranslationLink(pageUrl, branchName, branchLang) {
   // Create the new menu item
   var newMenuItem = document.createElement("div");
   newMenuItem.classList.add("menu-item");
+  if (isOriginal) newMenuItem.classList.add("original");
   // Record its branch's language code in the element
   newMenuItem.setAttribute("name", branchLang);
 
