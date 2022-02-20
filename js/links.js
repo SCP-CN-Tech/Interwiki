@@ -68,11 +68,16 @@ function addTranslations(branches, currentBranchLang, pagename, resize) {
     // TODO Make the string here translatable
     "Click to refresh (Last refresh：" + new Date().toLocaleString() + ")";
 
-  lookupMethod(currentBranch, branches, pagename, function () {
-    addTranslationLink(arguments);
-    // Resize the iframe to account for the new link
-    resize();
-  });
+  lookupMethod(
+    currentBranch,
+    branches,
+    pagename,
+    function (pageUrl, branchName, branchLang, isOriginal) {
+      addTranslationLink(pageUrl, branchName, branchLang, isOriginal);
+      // Resize the iframe to account for the new link
+      resize();
+    }
+  );
 }
 
 /**
