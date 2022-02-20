@@ -119,7 +119,7 @@ function findPagesInSiteStartingWith(siteId, fullname, callback) {
   var request = new XMLHttpRequest();
   request.open("GET", url, true);
   request.addEventListener("load", function () {
-    if (request.readyState === 4) {
+    if (request.readyState === XMLHttpRequest.DONE) {
       var fullnames = [];
       try {
         if (request.status === 200) {
