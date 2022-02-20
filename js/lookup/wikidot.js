@@ -3,14 +3,6 @@
 "use strict";
 
 /**
- * @callback addLinkCallback
- * @param {String} pageUrl
- * @param {String} branchName
- * @param {String} branchLang
- * @param {Boolean} isOriginal
- */
-
-/**
  * Searches for pages whose fullname matches the given string in the given
  * set of Wikidot sites using Wikidot's PageLookupQModule.
  *

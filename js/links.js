@@ -3,6 +3,17 @@
 
 "use strict";
 
+// Configure which lookup method is currently active
+var lookupMethod = wikidotLookup;
+
+/**
+ * @callback addLinkCallback
+ * @param {String} pageUrl
+ * @param {String} branchName
+ * @param {String} branchLang
+ * @param {Boolean} isOriginal
+ */
+
 /**
  * @typedef Branch
  *
@@ -57,7 +68,7 @@ function addTranslations(branches, currentBranchLang, pagename, resize) {
     // TODO Make the string here translatable
     "Click to refresh (Last refresh：" + new Date().toLocaleString() + ")";
 
-  wikidotLookup(currentBranch, branches, pagename, function () {
+  lookupMethod(currentBranch, branches, pagename, function () {
     addTranslationLink(arguments);
     // Resize the iframe to account for the new link
     resize();
