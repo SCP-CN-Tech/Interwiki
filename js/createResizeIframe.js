@@ -1,7 +1,3 @@
-/* exported createResizeIframe */
-
-"use strict";
-
 /**
  * Constructs and returns a function that, when called, resizes the current
  * iframes to match its contents. The function is debounced.
@@ -10,7 +6,7 @@
  * @param {String} frameId - The last segment of the URL of the interwiki
  * iframe, used by Wikidot to identify it when resizing it.
  */
-function createResizeIframe(site, frameId) {
+export function createResizeIframe(site, frameId) {
   var container = document.getElementById("resizer-container");
   var resizer = document.createElement("iframe");
   resizer.style.display = "none";
