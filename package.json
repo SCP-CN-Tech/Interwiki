@@ -5,7 +5,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "dev": "esbuild js/interwiki.js --bundle --serve --servedir=html --sourcemap=inline",
-    "build": "esbuild js/interwiki.js --outdir=dist --bundle --minify --sourcemap=linked --target=es5"
+    "build": "node build.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.23",
