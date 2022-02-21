@@ -1,70 +1,19 @@
 <!DOCTYPE html>
 <html id="interwiki">
-  <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <!-- Branches' info -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/js/branches-info-scp.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/js/branches-info-wl.js"
-    ></script>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <!-- C-take's resizing iframe method -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/js/createResizeIframe.js"
-    ></script>
+  <script src="./interwiki.js"></script>
+</head>
 
-    <!-- Main interwiki procedure -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/js/interwiki.js"
-    ></script>
-
-    <!-- CSS styling -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/js/styles.js"
-    ></script>
-
-    <!-- Retrieving/adding translation links -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/gh/scpwiki/interwiki@main/js/links.js"
-    ></script>
-
-    <script type="text/javascript">
-      /* global getQueryString, createInterwiki */
-
-      "use strict";
-
-      addEventListener("DOMContentLoaded", function () {
-        var community = getQueryString(location.search, "community");
-        var pagename = getQueryString(location.search, "pagename");
-        var lang = getQueryString(location.search, "lang");
-        var preventWikidotBaseStyle = getQueryString(
-          location.search,
-          "preventWikidotBaseStyle"
-        );
-
-        createInterwiki(community, pagename, lang, preventWikidotBaseStyle);
-
-        // Expose identity for styleFrame
-        window.isInterwikiFrame = true;
-      });
-    </script>
-  </head>
-
-  <body>
-    <div class="side-block">
-      <div class="heading">
-        <p></p>
-      </div>
+<body>
+  <div class="side-block">
+    <div class="heading">
+      <p></p>
     </div>
-    <div id="resizer-container"></div>
-  </body>
+  </div>
+  <div id="resizer-container"></div>
+</body>
+
 </html>

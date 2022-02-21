@@ -1,7 +1,4 @@
-/* global getQueryString */
-/* exported createRequestStyleChange, addExternalStyle */
-
-"use strict";
+import { getQueryString } from "./interwiki";
 
 /**
  * Constructs the handler for requesting style changes to the
@@ -12,7 +9,7 @@
  * @param {Function} resize - A function to call to resize the interwiki
  * iframe after adding new CSS.
  */
-function createRequestStyleChange(siteUrl, resize) {
+export function createRequestStyleChange(siteUrl, resize) {
   /**
    * Handles a style request from a styleFrame.
    *
@@ -70,7 +67,7 @@ function addInternalStyle(priority, css) {
  * sort order.
  * @param {String} url - The URL of the CSS stylesheet.
  */
-function addExternalStyle(priority, url) {
+export function addExternalStyle(priority, url) {
   // Check that the incoming link doesn't duplicate an existing style
   var linkElements = Array.prototype.slice.call(
     document.head.querySelectorAll("link.custom-style")

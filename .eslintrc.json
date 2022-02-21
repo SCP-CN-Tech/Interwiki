@@ -3,11 +3,16 @@
     "browser": true
   },
   "parserOptions": {
-    "ecmaVersion": 5
+    "ecmaVersion": 2015,
+    "sourceType": "module"
   },
-  "extends": ["eslint:recommended"],
-  "plugins": ["html"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:es/no-2015"
+  ],
+  "plugins": ["html", "es"],
   "rules": {
-    "strict": ["error", "global"]
+    "es/no-modules": "off"
   }
 }

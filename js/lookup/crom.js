@@ -1,7 +1,3 @@
-/* exported cromLookup */
-
-"use strict";
-
 // GraphQL query for Crom API
 var query =
   " \
@@ -61,7 +57,7 @@ var query =
  * @param {addLinkCallback} addLink - A function that will be called for
  * each found translation.
  */
-function cromLookup(currentBranch, branches, fullname, addLink) {
+export function cromLookup(currentBranch, branches, fullname, addLink) {
   Object.keys(branches).forEach(function (branchLang) {
     var branch = branches[branchLang];
     if (branch.url === currentBranch.url) return;

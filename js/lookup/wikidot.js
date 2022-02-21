@@ -1,7 +1,3 @@
-/* exported wikidotLookup */
-
-"use strict";
-
 /**
  * Searches for pages whose fullname matches the given string in the given
  * set of Wikidot sites using Wikidot's PageLookupQModule.
@@ -15,7 +11,7 @@
  * @param {addLinkCallback} addLink - A function that will be called for
  * each found translation.
  */
-function wikidotLookup(currentBranch, branches, fullname, addLink) {
+export function wikidotLookup(currentBranch, branches, fullname, addLink) {
   Object.keys(branches).forEach(function (branchLang) {
     if (branches[branchLang].url === currentBranch.url) return;
     var branch = branches[branchLang];

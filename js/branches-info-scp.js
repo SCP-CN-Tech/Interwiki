@@ -1,8 +1,4 @@
-/* exported scpBranches */
-
-"use strict";
-
-var scpBranches = {
+export var scpBranches = {
   cn: {
     name: "中文",
     head: "其他语言",
@@ -113,6 +109,13 @@ var scpBranches = {
     head: "其他語言",
     url: "https://scp-zh-tr.wikidot.com/",
     id: "3947998",
+    category: "",
+  },
+  vn: {
+    name: "Tiếng Việt",
+    head: "Ngôn ngữ",
+    url: "https://scp-vn.wikidot.com/",
+    id: "836589",
     category: "",
   },
 };
