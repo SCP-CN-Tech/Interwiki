@@ -1,14 +1,24 @@
-/* global
-  wlBranches,
-  scpBranches,
-  createRequestStyleChange,
-  addExternalStyle,
-  addTranslations,
-  createResizeIframe
-*/
-/* exported getQueryString, pullStyles, createInterwiki */
+import { createResizeIframe } from "./createResizeIframe";
+import { addTranslations } from "./links";
+import { addExternalStyle, createRequestStyleChange } from "./styles";
 
-"use strict";
+import { scpBranches } from "./branches-info-scp";
+import { wlBranches } from "./branches-info-wl";
+
+addEventListener("DOMContentLoaded", function () {
+  var community = getQueryString(location.search, "community");
+  var pagename = getQueryString(location.search, "pagename");
+  var lang = getQueryString(location.search, "lang");
+  var preventWikidotBaseStyle = getQueryString(
+    location.search,
+    "preventWikidotBaseStyle"
+  );
+
+  createInterwiki(community, pagename, lang, preventWikidotBaseStyle);
+
+  // Expose identity for styleFrame
+  window.isInterwikiFrame = true;
+});
 
 /**
  * Retrieves the value of the query parameter in the URL with the
@@ -17,7 +27,7 @@
  * @param {String} query - The URL query.
  * @param {String} name - The name of the parameter to get.
  */
-function getQueryString(query, name) {
+export function getQueryString(query, name) {
   // Get query parameters from the URL
   if (query.indexOf("?") === 0) query = query.substring(1);
   var parameters = query.split("&");
@@ -76,7 +86,7 @@ function pullStyles() {
  * addition of Wikidot's base style to the interwiki. If any value other
  * than the string "true", the style will be added with priority -1.
  */
-function createInterwiki(
+export function createInterwiki(
   community,
   pagename,
   currentBranchLang,

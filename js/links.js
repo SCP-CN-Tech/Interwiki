@@ -1,7 +1,3 @@
-/* exported addTranslations */
-
-"use strict";
-
 /**
  * @typedef Branch
  *
@@ -37,7 +33,7 @@
  * @param {Function} resize - A callback to resize the iframe after adding
  * a new translation.
  */
-function addTranslations(branches, currentBranchLang, pagename, resize) {
+export function addTranslations(branches, currentBranchLang, pagename, resize) {
   // Get the config for the current branch, if configured
   var currentBranch = branches[currentBranchLang] || {};
 

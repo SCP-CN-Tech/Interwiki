@@ -230,17 +230,16 @@ a vertical scrollbar to appear on the Interwiki.
 
 # Development
 
-Install locally with [NPM](https://www.npmjs.com/):
+Install locally with [NPM](https://www.npmjs.com/): `npm install`
 
-```shell
-npm install
-```
+We use [Prettier](https://prettier.io/) for formatting: `npm run format`
 
-We use [Prettier](https://prettier.io/) for formatting:
+To test locally, run `npm run serve`, note the local IP for the server, and
+follow the usual setup instructions using it as the hosted location. On
+page refresh the iframe will be reloaded with any new changes without
+needing to be recompiled.
 
-```shell
-npm run format
-```
+To build, run `npm run build`. Output can be found in the `dist/` directly,
+and all files present should be hosted for usage.
 
-Development is intentionally simple and we have no compile step. New code
-should be written in ES5 and be executable on older browsers.
+All JavaScript should be written in ES5.

@@ -1,8 +1,4 @@
-/* exported wlBranches */
-
-"use strict";
-
-var wlBranches = {
+export var wlBranches = {
   cn: {
     name: "中文",
     head: "其他语言",

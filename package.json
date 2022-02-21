@@ -3,11 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "dev": "esbuild js/interwiki.js --bundle --serve --servedir=html --sourcemap=inline",
+    "build": "node build.js"
   },
   "devDependencies": {
+    "esbuild": "^0.14.23",
     "eslint": "^7.32.0",
+    "eslint-plugin-es": "^4.1.0",
     "eslint-plugin-html": "^6.1.2",
+    "eslint-plugin-import": "^2.25.4",
     "prettier": "2.3.2"
   }
 }
