@@ -3,7 +3,7 @@
 var esbuild = require("esbuild");
 var fs = require("fs");
 
-fs.rmdirSync("dist", { recursive: true });
+fs.rmSync("dist", { recursive: true, force: true });
 
 esbuild.buildSync({
   entryPoints: ["js/interwiki.js"],
