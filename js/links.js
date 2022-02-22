@@ -1,7 +1,7 @@
-import { wikidotLookup } from "./lookup/wikidot";
+import { cromLookup } from "./lookup/crom";
 
 // Configure which lookup method is currently active
-var lookupMethod = wikidotLookup;
+var lookupMethod = cromLookup;
 
 /**
  * @callback addLinkCallback
