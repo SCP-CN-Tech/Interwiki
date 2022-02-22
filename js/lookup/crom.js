@@ -58,15 +58,8 @@ var query =
  * each found translation.
  */
 export function cromLookup(currentBranch, branches, fullname, addLink) {
-  Object.keys(branches).forEach(function (branchLang) {
-    var branch = branches[branchLang];
-    if (branch.url === currentBranch.url) return;
-    executeQuery(
-      normaliseUrl(currentBranch.url + fullname),
-      function (response) {
-        parseTranslations(response, currentBranch, branches, addLink);
-      }
-    );
+  executeQuery(normaliseUrl(currentBranch.url + fullname), function (response) {
+    parseTranslations(response, currentBranch, branches, addLink);
   });
 }
 
