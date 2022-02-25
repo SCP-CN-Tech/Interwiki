@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "eslint .",
     "format": "prettier --write .",
-    "dev": "esbuild js/interwiki.js --bundle --serve --servedir=html --sourcemap=inline",
+    "dev": "NODE_ENV=development node build.js",
     "build": "node build.js"
   },
   "devDependencies": {

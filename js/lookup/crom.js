@@ -70,7 +70,7 @@ export function cromLookup(currentBranch, branches, fullname, addLink) {
  */
 function normaliseUrl(url) {
   if (url.indexOf(".wikidot.com") === -1) {
-    throw new Error("Crom requires wikidot.com branch URLs");
+    throw new Error("Crom requires wikidot.com branch URLs (" + url + ")");
   }
   return url.replace(/^https:/, "http");
 }
