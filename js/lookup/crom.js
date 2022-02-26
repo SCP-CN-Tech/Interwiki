@@ -94,11 +94,13 @@ function parseTranslations(response, currentBranch, branches, addLink) {
   var translations = [];
 
   // Extract translations of this page
-  translations.extend(response.translations.map(url));
+  translations = translations.concat(response.translations.map(url));
   // Extract translations of this page's translation root
   if (response.translationOf) {
     original = response.translationOf.url;
-    translations.extend(response.translationOf.translations.map(url));
+    translations = translations.concat(
+      response.translationOf.translations.map(url)
+    );
   }
 
   translations.forEach(function (translation) {
