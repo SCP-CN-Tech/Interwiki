@@ -12,8 +12,6 @@ export function createResizeIframe(site, frameId) {
   resizer.style.display = "none";
   container.appendChild(resizer);
 
-  // The resizer iframe must be on the same protocol + domain as the parent
-  site = site.replace(/^https?:/, "");
   if (frameId[0] !== "/") frameId = "/" + frameId;
 
   return debounce(function () {
