@@ -14,6 +14,6 @@ esbuild.buildSync({
   target: "es5",
 });
 
-["interwikiFrame", "styleFrame"].forEach(function (frame) {
+["interwikiFrame", "styleFrame", "index"].forEach(function (frame) {
   fs.copyFileSync("html/" + frame + ".html", "dist/" + frame + ".html");
 });
