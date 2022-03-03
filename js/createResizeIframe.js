@@ -38,7 +38,7 @@ export function createResizeIframe(site, frameId) {
         height +
         frameId;
     }
-  }, 250);
+  }, 750);
 }
 
 /**
