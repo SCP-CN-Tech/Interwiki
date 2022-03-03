@@ -29,6 +29,8 @@ export function createResizeIframe(site, frameId) {
       // The container must not have display:none for this to work, which is
       // why the iframe has it instead
       var height = container.getBoundingClientRect().top;
+      // Brute-force past any subpixel issues
+      if (height) height += 1;
       resizer.src =
         site +
         "/common--javascript/resize-iframe.html?" +
