@@ -98,6 +98,7 @@ function parseTranslations(response, currentBranch, branches, addLink) {
   // Extract translations of this page's translation root
   if (response.translationOf) {
     original = response.translationOf.url;
+    translations.push(original);
     translations = translations.concat(
       response.translationOf.translations.map(url)
     );
