@@ -25,15 +25,10 @@ export function createRequestStyleChange(siteUrl, resize) {
     }
 
     var theme = getQueryString(request, "theme");
-    if (theme) addExternalStyle(priority, urlFromTheme(siteUrl, theme));
+    if (theme) addExternalStyle(priority, urlFromTheme(siteUrl, theme), resize);
 
     var css = getQueryString(request, "css");
-    if (css) addInternalStyle(priority, css);
-
-    // There is no reliable way to detect when the styles have been both
-    // loaded and applied to the document, so wait a tick before resizing
-    // the iframe to account for any new styles
-    if (theme || css) setTimeout(resize, 250);
+    if (css) addInternalStyle(priority, css, resize);
   };
 }
 
@@ -43,8 +38,10 @@ export function createRequestStyleChange(siteUrl, resize) {
  * @param {Number} priority - The priority of the CSS, which determines the
  * sort order.
  * @param {String} css - Raw CSS to add to the style.
+ * @param {Function} resize - Callback to resize the iframe after applying
+ * the style.
  */
-function addInternalStyle(priority, css) {
+function addInternalStyle(priority, css, resize) {
   // Check that the incoming CSS doesn't duplicate an existing style
   var styleElements = Array.prototype.slice.call(
     document.head.querySelectorAll("style.custom-style")
@@ -57,6 +54,10 @@ function addInternalStyle(priority, css) {
 
   // Insert the style into the appropriate position in the head
   insertStyle(priority, style);
+
+  // There is no reliable way to detect when the style has been applied to
+  // the document, so wait a tick before resizing the iframe
+  setTimeout(resize, 250);
 }
 
 /**
@@ -66,8 +67,10 @@ function addInternalStyle(priority, css) {
  * @param {Number} priority - The priority of the CSS, which determines the
  * sort order.
  * @param {String} url - The URL of the CSS stylesheet.
+ * @param {Function} resize - Callback to resize the iframe after applying
+ * the style.
  */
-export function addExternalStyle(priority, url) {
+export function addExternalStyle(priority, url, resize) {
   // Check that the incoming link doesn't duplicate an existing style
   var linkElements = Array.prototype.slice.call(
     document.head.querySelectorAll("link.custom-style")
@@ -77,6 +80,11 @@ export function addExternalStyle(priority, url) {
   // Create a new link element for the stylesheet
   var link = document.createElement("link");
   link.rel = "stylesheet";
+
+  // There is no way to detect when the style from the stylesheet has been
+  // applied to the document - best that can be done is to wait a tick
+  // after the stylesheet has been retrieved
+  link.addEventListener("load", resize);
   link.href = url;
 
   // Insert the link into the appropriate position in the head
