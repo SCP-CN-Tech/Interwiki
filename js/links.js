@@ -65,8 +65,9 @@ export function addTranslations(branches, currentBranchLang, pagename, resize) {
     pagename,
     function (pageUrl, branchName, branchLang, isOriginal) {
       addTranslationLink(pageUrl, branchName, branchLang, isOriginal);
-      // Resize the iframe to account for the new link
-      resize();
+      // Resize the iframe to account for the new link and indicate that
+      // data has been received
+      resize(true);
     }
   );
 }
