@@ -2,7 +2,7 @@
  * Whether the interwiki should be visible. It should only be visible after
  * data has been received from the API source.
  */
-var showInterwiki = false;
+export var flags = { showInterwiki: false };
 
 /**
  * Constructs and returns a function that, when called, resizes the current
@@ -21,8 +21,8 @@ export function createResizeIframe(site, frameId) {
   if (frameId[0] !== "/") frameId = "/" + frameId;
 
   return debounce(function (receivedData) {
-    if (receivedData) showInterwiki = true;
-    if (showInterwiki) {
+    if (receivedData) flags.showInterwiki = true;
+    if (flags.showInterwiki) {
       // Measure from the top of the document to the iframe container to get
       // the document height - this takes into account inner margins, unlike
       // e.g. document.body.clientHeight

@@ -121,5 +121,5 @@ export function createInterwiki(
   }
 
   pullStyles();
-  addTranslations(branches, currentBranchLang, pagename, resize);
+  addTranslations(branches, currentBranchLang, pagename);
 }
