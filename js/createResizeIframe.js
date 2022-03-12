@@ -1,4 +1,10 @@
 /**
+ * Whether the interwiki should be visible. It should only be visible after
+ * data has been received from the API source.
+ */
+export var flags = { showInterwiki: false };
+
+/**
  * Constructs and returns a function that, when called, resizes the current
  * iframes to match its contents. The function is debounced.
  *
@@ -12,26 +18,27 @@ export function createResizeIframe(site, frameId) {
   resizer.style.display = "none";
   container.appendChild(resizer);
 
-  // The resizer iframe must be on the same protocol + domain as the parent
-  site = site.replace(/^https?:/, "");
   if (frameId[0] !== "/") frameId = "/" + frameId;
 
-  return debounce(function () {
-    // Measure from the top of the document to the iframe container to get
-    // the document height - this takes into account inner margins, unlike
-    // e.g. document.body.clientHeight
-    // The container must not have display:none for this to work, which is
-    // why the iframe has it instead
-    var height = container.getBoundingClientRect().top;
-    var cacheBreak = String(Math.floor(Math.random() * 10000));
-    resizer.src =
-      site +
-      "/common--javascript/resize-iframe.html?" +
-      cacheBreak +
-      "#" +
-      height +
-      frameId;
-  }, 250);
+  return debounce(function (receivedData) {
+    if (receivedData) flags.showInterwiki = true;
+    if (flags.showInterwiki) {
+      // Measure from the top of the document to the iframe container to get
+      // the document height - this takes into account inner margins, unlike
+      // e.g. document.body.clientHeight
+      // The container must not have display:none for this to work, which is
+      // why the iframe has it instead
+      var height = container.getBoundingClientRect().top;
+      // Brute-force past any subpixel issues
+      if (height) height += 1;
+      resizer.src =
+        site +
+        "/common--javascript/resize-iframe.html?" +
+        "#" +
+        height +
+        frameId;
+    }
+  }, 750);
 }
 
 /**
@@ -47,6 +54,8 @@ function debounce(func, wait) {
   var timeout = 0;
   return function () {
     clearTimeout(timeout);
-    timeout = setTimeout(func, wait);
+    timeout = setTimeout(function () {
+      func(arguments);
+    }, wait);
   };
 }

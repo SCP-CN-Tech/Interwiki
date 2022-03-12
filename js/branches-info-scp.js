@@ -58,14 +58,14 @@ export var scpBranches = {
   ko: {
     name: "한국어",
     head: "다른 언어",
-    url: "http://ko.scp-wiki.net/",
+    url: "http://scpko.wikidot.com/",
     id: "486864",
     category: "",
   },
   pl: {
     name: "Polski",
     head: "W innych językach",
-    url: "http://scp-wiki.net.pl/",
+    url: "http://scp-pl.wikidot.com/",
     id: "647733",
     category: "",
   },
@@ -79,14 +79,14 @@ export var scpBranches = {
   ru: {
     name: "Русский",
     head: "На других языках",
-    url: "http://scpfoundation.net/",
+    url: "http://scp-ru.wikidot.com/",
     id: "169125",
     category: "",
   },
   es: {
     name: "Español",
     head: "En otros idiomas",
-    url: "http://scp-es.com/",
+    url: "http://lafundacionscp.wikidot.com/",
     id: "560484",
     category: "",
   },

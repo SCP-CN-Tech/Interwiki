@@ -3,15 +3,17 @@
 var esbuild = require("esbuild");
 var fs = require("fs");
 
+var dev = process.env.NODE_ENV === "development";
+
 fs.rmSync("dist", { recursive: true, force: true });
 
 esbuild.buildSync({
   entryPoints: ["js/interwiki.js"],
   outdir: "dist",
   bundle: true,
-  minify: true,
-  sourcemap: true,
-  target: "es5",
+  minify: !dev,
+  sourcemap: dev ? "inline" : true,
+  target: dev ? "esnext" : "es5",
 });
 
 ["interwikiFrame", "styleFrame", "index"].forEach(function (frame) {

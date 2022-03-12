@@ -221,9 +221,11 @@ the standard sidebar used on SCP sites.
 The Interwiki is a single `html#interwiki body div.side-block`. Inside is a
 `div.heading p`, which is the title of the side block. Beneath the
 `.heading`, a series of `div.menu-item[name]` will be created, with the
-value of `name` corresponding to the branch's language code. Inside each
-`.menu-item` is an `img.image` containing the Sigma-9 bullet point,
-followed by an `a[href]` for the translation link.
+value of `name` corresponding to the branch's language code. If the link
+points to the original article rather than a translation, the element will
+also have class `.original.`. Inside each `.menu-item` is an `img.image`
+containing the Sigma-9 bullet point, followed by an `a[href]` for the
+translation link.
 
 Do not add margin or padding to either `html` or `body`, as this will cause
 a vertical scrollbar to appear on the Interwiki.

@@ -9,7 +9,7 @@ import { getQueryString } from "./interwiki";
  * @param {Function} resize - A function to call to resize the interwiki
  * iframe after adding new CSS.
  */
-export function createRequestStyleChange(siteUrl, resize) {
+export function createRequestStyleChange(siteUrl) {
   /**
    * Handles a style request from a styleFrame.
    *
@@ -29,11 +29,6 @@ export function createRequestStyleChange(siteUrl, resize) {
 
     var css = getQueryString(request, "css");
     if (css) addInternalStyle(priority, css);
-
-    // There is no reliable way to detect when the styles have been both
-    // loaded and applied to the document, so wait a tick before resizing
-    // the iframe to account for any new styles
-    if (theme || css) setTimeout(resize, 250);
   };
 }
 
