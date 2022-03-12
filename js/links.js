@@ -1,3 +1,4 @@
+import { flags } from "./createResizeIframe";
 import { cromLookup } from "./lookup/crom";
 
 // Configure which lookup method is currently active
@@ -43,10 +44,8 @@ var lookupMethod = cromLookup;
  * branch, as defined in the community's branches config.
  * @param {String} pagename - The fullname of the page in the current
  * branch to find translations for.
- * @param {Function} resize - A callback to resize the iframe after adding
- * a new translation.
  */
-export function addTranslations(branches, currentBranchLang, pagename, resize) {
+export function addTranslations(branches, currentBranchLang, pagename) {
   // Get the config for the current branch, if configured
   var currentBranch = branches[currentBranchLang] || {};
 
@@ -65,9 +64,8 @@ export function addTranslations(branches, currentBranchLang, pagename, resize) {
     pagename,
     function (pageUrl, branchName, branchLang, isOriginal) {
       addTranslationLink(pageUrl, branchName, branchLang, isOriginal);
-      // Resize the iframe to account for the new link and indicate that
-      // data has been received
-      resize(true);
+      // Indicate that data has been received
+      flags.showInterwiki = true;
     }
   );
 }

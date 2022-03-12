@@ -5,6 +5,8 @@ import { addExternalStyle, createRequestStyleChange } from "./styles";
 import { scpBranches } from "./branches-info-scp";
 import { wlBranches } from "./branches-info-wl";
 
+import { ResizeObserver } from "@juggle/resize-observer";
+
 addEventListener("DOMContentLoaded", function () {
   var community = getQueryString(location.search, "community");
   var pagename = getQueryString(location.search, "pagename");
@@ -105,12 +107,13 @@ export function createInterwiki(
   var frameId = location.href.replace(/^.*\//, "/");
   var resize = createResizeIframe(site, frameId);
 
+  // Resize frame when size changes are detected
+  var observer = new ResizeObserver(resize);
+  observer.observe(document.documentElement);
+
   // Construct the function that will be called internally and by
   // styleFrames to request style changes
-  window.requestStyleChange = createRequestStyleChange(
-    currentBranch.url || "",
-    resize
-  );
+  window.requestStyleChange = createRequestStyleChange(currentBranch.url || "");
 
   // Add Wikidot's base style unless instructed otherwise
   if (preventWikidotBaseStyle !== "true") {
@@ -121,5 +124,5 @@ export function createInterwiki(
   }
 
   pullStyles();
-  addTranslations(branches, currentBranchLang, pagename, resize);
+  addTranslations(branches, currentBranchLang, pagename);
 }
