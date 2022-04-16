@@ -6,10 +6,10 @@ import { getQueryString } from "./interwiki";
  *
  * @param {String} siteUrl - The base URL of the interwiki's configured
  * site.
- * @param {Function} resize - A function to call to resize the interwiki
- * iframe after adding new CSS.
+ * @param {String} type - The type of interwiki, for potentially
+ * different styles of interwiki in the same page.
  */
-export function createRequestStyleChange(siteUrl) {
+export function createRequestStyleChange(siteUrl, type) {
   /**
    * Handles a style request from a styleFrame.
    *
@@ -17,12 +17,14 @@ export function createRequestStyleChange(siteUrl) {
    * requesting a style change for the interwikiFrame.
    */
   return function requestStyleChange(request) {
+    var styleType = getQueryString(request, "type") || "default";
     var priorityRaw = getQueryString(request, "priority");
     var priority = Number(priorityRaw);
     if (isNaN(priority)) {
       console.error("Interwiki: rejected style with priority" + priorityRaw);
       return;
     }
+    if (styleType != type) return;
 
     var theme = getQueryString(request, "theme");
     if (theme) addExternalStyle(priority, urlFromTheme(siteUrl, theme));
