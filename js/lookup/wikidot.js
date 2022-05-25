@@ -68,6 +68,7 @@ function addTranslationForBranch(
 
   // Find pages in the target branch matching this fullname
   findPagesInSiteStartingWith(
+    currentBranch.url,
     targetBranch.id,
     targetFullname,
     function (fullnames) {
@@ -102,6 +103,7 @@ function addTranslationForBranch(
  *
  * A 'fullname' is also referred to as a page's 'UNIX name'.
  *
+ * @param {String} currentBranchUrl - Url for the current branch.
  * @param {String} siteId - The numeric Wikidot site ID of the site to
  * search.
  * @param {String} fullname - The substring to compare fullnames against.
@@ -109,9 +111,9 @@ function addTranslationForBranch(
  * @param {findPagesCallback} callback - Will be called with the array of
  * matching fullnames.
  */
-function findPagesInSiteStartingWith(siteId, fullname, callback) {
+function findPagesInSiteStartingWith(currentBranchUrl, siteId, fullname, callback) {
   var query = "&s=" + siteId + "&q=" + fullname;
-  var url = "/quickmodule.php?module=PageLookupQModule" + query;
+  var url = currentBranchUrl + "quickmodule.php?module=PageLookupQModule" + query;
   var request = new XMLHttpRequest();
   request.open("GET", url, true);
   request.addEventListener("load", function () {
