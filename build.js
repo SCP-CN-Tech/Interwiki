@@ -19,3 +19,9 @@ esbuild.buildSync({
 ["interwikiFrame", "styleFrame", "index"].forEach(function (frame) {
   fs.copyFileSync("html/" + frame + ".html", "dist/" + frame + ".html");
 });
+
+fs.mkdirSync("dist/css");
+
+["style", "style-wl", "style-404", "style-bhl", "style-bhl-dark"].forEach(function (frame) {
+  fs.copyFileSync("css/" + frame + ".css", "dist/css/" + frame + ".css");
+});
