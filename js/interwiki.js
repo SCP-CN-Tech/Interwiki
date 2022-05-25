@@ -99,7 +99,8 @@ export function createInterwiki(
   preventWikidotBaseStyle
 ) {
   pagename = pagename.replace(/^_default:/, "");
-  pagename = pagename.replace(/[^A-Za-z\-:]+/g, "-").toLowerCase();
+  pagename = pagename.replace(/[^\w\-:]+/g, "-").toLowerCase();
+  pagename = pagename.replace(/^_/, "#").replace(/_/g, "-").replace(/#/, "_");
   pagename = pagename.replace(/^-+|-+$/g, "");
 
   // Get the list of branches for the given community
