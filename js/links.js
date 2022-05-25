@@ -1,6 +1,5 @@
 import { flags } from "./createResizeIframe";
-import { cromLookup } from "./lookup/crom";
-import { wikidotLookup } from "./lookup/wikidot";
+import { cromLookup, crom404Lookup } from "./lookup/crom";
 
 // Configure which lookup method is currently active
 var lookupMethod = cromLookup;
@@ -61,9 +60,8 @@ export function addTranslations(branches, currentBranchLang, pagename, is404) {
   header.innerText = currentBranch.head;
 
   if (is404) {
-    // There is no easy method to find all translations for a non existent
-    // page in Crom, so Wikidot lookup is used.
-    wikidotLookup(
+    // A specialized lookup query is made for 404 pages.
+    crom404Lookup(
       currentBranch,
       branches,
       pagename,
