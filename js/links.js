@@ -1,5 +1,6 @@
 import { flags } from "./createResizeIframe";
 import { cromLookup } from "./lookup/crom";
+import { wikidotLookup } from "./lookup/wikidot";
 
 // Configure which lookup method is currently active
 var lookupMethod = cromLookup;
@@ -44,8 +45,9 @@ var lookupMethod = cromLookup;
  * branch, as defined in the community's branches config.
  * @param {String} pagename - The fullname of the page in the current
  * branch to find translations for.
+ * @param {String} is404 - Whether the target page is a non existent page.
  */
-export function addTranslations(branches, currentBranchLang, pagename) {
+export function addTranslations(branches, currentBranchLang, pagename, is404) {
   // Get the config for the current branch, if configured
   var currentBranch = branches[currentBranchLang] || {};
 
@@ -58,16 +60,31 @@ export function addTranslations(branches, currentBranchLang, pagename) {
   var header = document.querySelector(".heading p");
   header.innerText = currentBranch.head;
 
-  lookupMethod(
-    currentBranch,
-    branches,
-    pagename,
-    function (pageUrl, branchName, branchLang, isOriginal) {
-      addTranslationLink(pageUrl, branchName, branchLang, isOriginal);
-      // Indicate that data has been received
-      flags.showInterwiki = true;
-    }
-  );
+  if (is404) {
+    // There is no easy method to find all translations for a non existent
+    // page in Crom, so Wikidot lookup is used.
+    wikidotLookup(
+      currentBranch,
+      branches,
+      pagename,
+      function (pageUrl, branchName, branchLang, isOriginal) {
+        addTranslationLink(pageUrl, branchName, branchLang, isOriginal);
+        // Indicate that data has been received
+        flags.showInterwiki = true;
+      }
+    );
+  } else {
+    lookupMethod(
+      currentBranch,
+      branches,
+      pagename,
+      function (pageUrl, branchName, branchLang, isOriginal) {
+        addTranslationLink(pageUrl, branchName, branchLang, isOriginal);
+        // Indicate that data has been received
+        flags.showInterwiki = true;
+      }
+    );
+  }
 }
 
 /**
@@ -100,7 +117,7 @@ function addTranslationLink(pageUrl, branchName, branchLang, isOriginal) {
   var bullet = document.createElement("img");
   bullet.setAttribute(
     "src",
-    "//scp-wiki.wdfiles.com/local--files/nav:side/default.png"
+    "//sigma9.zokhoi.com/cn/img/default.png"
   );
   bullet.setAttribute("alt", "default.png");
   bullet.classList.add("image");

@@ -134,5 +134,5 @@ export function createInterwiki(
   }
 
   pullStyles();
-  addTranslations(branches, currentBranchLang, pagename);
+  addTranslations(branches, currentBranchLang, pagename, type=="404");
 }
