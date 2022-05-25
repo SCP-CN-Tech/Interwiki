@@ -17,18 +17,6 @@ var query =
 ";
 
 
-var query404 =
-  " \
-  query InterwikiQuery($url: URL!) { \
-    page(url: $url) { \
-      wikidotInfo { \
-        wikidotId \
-      } \
-    } \
-  } \
-";
-
-
 /**
  * @typedef CromPage
  * @type {Object}
@@ -71,30 +59,8 @@ var query404 =
  * each found translation.
  */
 export function cromLookup(currentBranch, branches, fullname, addLink) {
-  executeQuery(normaliseUrl(currentBranch.url + fullname), false, function (response) {
+  executeQuery(normaliseUrl(currentBranch.url + fullname), function (response) {
     parseTranslations(response, currentBranch, branches, addLink);
-  });
-}
-
-/**
- * Searches for pages whose fullname matches the given string in the given
- * set of Wikidot sites using Crom query.
- *
- * @param {Branch} currentBranch - Configuration for the current branch.
- * @param {Object.<string, Branch>} branches - The branches configuration
- * for the current community. All passed branches will be searched for the
- * target page.
- * @param {String} fullname - The fullname of the target page.
- * @param {addLinkCallback} addLink - A function that will be called for
- * each found translation.
- */
-export function crom404Lookup(currentBranch, branches, fullname, addLink) {
-  Object.keys(branches).forEach(function (branchLang) {
-    if (branches[branchLang].url === currentBranch.url) return;
-    var branch = branches[branchLang];
-    executeQuery(normaliseUrl(branch.url + fullname), true, function (response) {
-      parseExistence(response, branch, branches, fullname, addLink);
-    });
   });
 }
 
@@ -164,43 +130,15 @@ function parseTranslations(response, currentBranch, branches, addLink) {
 }
 
 /**
- * Parses the response from the Crom API into a list of translations.
- *
- * @param {CromTranslations} response - The response from the Crom API.
- * @param {Branch} currentBranch - Configuration for the current branch.
- * @param {Object.<string, Branch>} branches - The branches configuration
- * for the current community. All passed branches will be searched for the
- * target page.
- * @param {String} fullname - The fullname of the target page.
- * @param {addLinkCallback} addLink - A function that will be
- * called for each found translation.
- */
-function parseExistence(response, currentBranch, branches, fullname, addLink) {
-  if (response.wikidotInfo) {
-    var targetBranchLang = Object.keys(branches).find(function (branchLang) {
-      return branches[branchLang].url === currentBranch.url;
-    });
-
-    addLink(
-      currentBranch.url + fullname,
-      branches[targetBranchLang].name,
-      targetBranchLang,
-      false
-    );
-  }
-}
-
-/**
  * Queries the Crom API for translations of the given page.
  *
  * @param {String} url - The HTTP Wikidot URL of the page for which to look
  * up translations.
- * @param {Boolean} is404 - Whether the query is for a 404 page or not.
  * @param {Function} callback - Will be called with the response from Crom.
  */
-function executeQuery(url, is404, callback) {
+function executeQuery(url, callback) {
   var request = new XMLHttpRequest();
-  request.open("POST", "https://api.crom.avn.sh/graphql", true);
+  request.open("POST", "https://zh.xjo.ch/crom/graphql", true);
   request.setRequestHeader("Content-Type", "application/json");
   request.addEventListener("readystatechange", function () {
     if (request.readyState === XMLHttpRequest.DONE) {
@@ -220,5 +158,5 @@ function executeQuery(url, is404, callback) {
       }
     }
   });
-  request.send(JSON.stringify({ query: is404 ? query404 : query, variables: { url: url } }));
+  request.send(JSON.stringify({ query: query, variables: { url: url } }));
 }

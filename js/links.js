@@ -1,5 +1,5 @@
 import { flags } from "./createResizeIframe";
-import { cromLookup, crom404Lookup } from "./lookup/crom";
+import { cromLookup } from "./lookup/crom";
 
 // Configure which lookup method is currently active
 var lookupMethod = cromLookup;
@@ -44,9 +44,8 @@ var lookupMethod = cromLookup;
  * branch, as defined in the community's branches config.
  * @param {String} pagename - The fullname of the page in the current
  * branch to find translations for.
- * @param {String} is404 - Whether the target page is a non existent page.
  */
-export function addTranslations(branches, currentBranchLang, pagename, is404) {
+export function addTranslations(branches, currentBranchLang, pagename) {
   // Get the config for the current branch, if configured
   var currentBranch = branches[currentBranchLang] || {};
 
@@ -59,30 +58,16 @@ export function addTranslations(branches, currentBranchLang, pagename, is404) {
   var header = document.querySelector(".heading p");
   header.innerText = currentBranch.head;
 
-  if (is404) {
-    // A specialized lookup query is made for 404 pages.
-    crom404Lookup(
-      currentBranch,
-      branches,
-      pagename,
-      function (pageUrl, branchName, branchLang, isOriginal) {
-        addTranslationLink(pageUrl, branchName, branchLang, isOriginal);
-        // Indicate that data has been received
-        flags.showInterwiki = true;
-      }
-    );
-  } else {
-    lookupMethod(
-      currentBranch,
-      branches,
-      pagename,
-      function (pageUrl, branchName, branchLang, isOriginal) {
-        addTranslationLink(pageUrl, branchName, branchLang, isOriginal);
-        // Indicate that data has been received
-        flags.showInterwiki = true;
-      }
-    );
-  }
+  lookupMethod(
+    currentBranch,
+    branches,
+    pagename,
+    function (pageUrl, branchName, branchLang, isOriginal) {
+      addTranslationLink(pageUrl, branchName, branchLang, isOriginal);
+      // Indicate that data has been received
+      flags.showInterwiki = true;
+    }
+  );
 }
 
 /**
