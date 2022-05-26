@@ -55,6 +55,11 @@ function addInternalStyle(priority, css, override) {
     var overrideElement = styleElements.find(duplicatesPriority(priority));
     // Override the style of a pre-existing styling element
     if (overrideElement) {
+      console.log(
+        "Interwiki: style at priority " + 
+        priority +
+        " is being overrided."
+      );
       overrideElement.innerText = css;
       return;
     }
@@ -89,6 +94,15 @@ export function addExternalStyle(priority, url, override) {
     var overrideElement = linkElements.find(duplicatesPriority(priority));
     // Override the link of a pre-existing link element
     if (overrideElement) {
+      console.log(
+        "Interwiki: stylesheet " +
+        overrideElement.href +
+        " is overrided by " +
+        url + 
+        " at priority " + 
+        priority +
+        "."
+      );
       overrideElement.href = url;
       return;
     }
