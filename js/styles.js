@@ -20,6 +20,8 @@ export function createRequestStyleChange(siteUrl, type) {
     var styleType = getQueryString(request, "type") || "default";
     var priorityRaw = getQueryString(request, "priority");
     var priority = Number(priorityRaw);
+    var overrideRaw = getQueryString(request, "override") || "0";
+    var override = Boolean(Number(overrideRaw));
     if (isNaN(priority)) {
       console.error("Interwiki: rejected style with priority" + priorityRaw);
       return;
@@ -27,10 +29,10 @@ export function createRequestStyleChange(siteUrl, type) {
     if (styleType != type) return;
 
     var theme = getQueryString(request, "theme");
-    if (theme) addExternalStyle(priority, urlFromTheme(siteUrl, theme));
+    if (theme) addExternalStyle(priority, urlFromTheme(siteUrl, theme), override);
 
     var css = getQueryString(request, "css");
-    if (css) addInternalStyle(priority, css);
+    if (css) addInternalStyle(priority, css, override);
   };
 }
 
@@ -40,13 +42,23 @@ export function createRequestStyleChange(siteUrl, type) {
  * @param {Number} priority - The priority of the CSS, which determines the
  * sort order.
  * @param {String} css - Raw CSS to add to the style.
+ * @param {Boolean} override - Whether to remove all previous styling or not.
  */
-function addInternalStyle(priority, css) {
+function addInternalStyle(priority, css, override) {
   // Check that the incoming CSS doesn't duplicate an existing style
   var styleElements = Array.prototype.slice.call(
     document.head.querySelectorAll("style.custom-style")
   );
   if (styleElements.some(duplicatesStyle(priority, css))) return;
+
+  if (override) {
+    var overrideElement = styleElements.find(duplicatesPriority(priority));
+    // Override the style of a pre-existing styling element
+    if (overrideElement) {
+      overrideElement.innerText = css;
+      return;
+    }
+  }
 
   // Create a new style elements for the CSS
   var style = document.createElement("style");
@@ -54,6 +66,7 @@ function addInternalStyle(priority, css) {
 
   // Insert the style into the appropriate position in the head
   insertStyle(priority, style);
+  
 }
 
 /**
@@ -63,13 +76,23 @@ function addInternalStyle(priority, css) {
  * @param {Number} priority - The priority of the CSS, which determines the
  * sort order.
  * @param {String} url - The URL of the CSS stylesheet.
+ * @param {Boolean} override - Whether to remove all previous styling or not.
  */
-export function addExternalStyle(priority, url) {
+export function addExternalStyle(priority, url, override) {
   // Check that the incoming link doesn't duplicate an existing style
   var linkElements = Array.prototype.slice.call(
     document.head.querySelectorAll("link.custom-style")
   );
   if (linkElements.some(duplicatesStyle(priority, url))) return;
+  
+  if (override) {
+    var overrideElement = linkElements.find(duplicatesPriority(priority));
+    // Override the link of a pre-existing link element
+    if (overrideElement) {
+      overrideElement.href = url;
+      return;
+    }
+  }
 
   // Create a new link element for the stylesheet
   var link = document.createElement("link");
@@ -124,7 +147,7 @@ function insertStyle(newPriority, newStylingElement) {
             (tagName === "LINK" ? "themes" : "CSS styles") +
             " with the same priority (" +
             priority +
-            ") - result may not be as expected"
+            ") and override is set to false - result may not be as expected"
         );
         // Fall back to insertion
       }
@@ -171,6 +194,23 @@ function duplicatesStyle(priority, value) {
       return styleElement.innerText === value;
     }
     return false;
+  };
+  return isDuplicate;
+}
+
+/**
+ * Constructs and returns a function that checks if a given HTML element
+ * (assumed to be either a link or a style element) has the given priority.
+ *
+ * @param {Number} priority
+ */
+ function duplicatesPriority(priority) {
+  /**
+   * @param {HTMLLinkElement | HTMLStyleElement} styleElement
+   * @returns {Boolean}
+   */
+  var isDuplicate = function (styleElement) {
+    return Number(styleElement.getAttribute("data-priority")) !== priority;
   };
   return isDuplicate;
 }
