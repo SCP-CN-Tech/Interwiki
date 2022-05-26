@@ -224,7 +224,7 @@ function duplicatesStyle(priority, value) {
    * @returns {Boolean}
    */
   var isDuplicate = function (styleElement) {
-    return Number(styleElement.getAttribute("data-priority")) !== priority;
+    return Number(styleElement.getAttribute("data-priority")) === priority;
   };
   return isDuplicate;
 }

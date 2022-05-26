@@ -129,7 +129,8 @@ export function createInterwiki(
   if (preventWikidotBaseStyle !== "true") {
     addExternalStyle(
       -1,
-      "//d3g0gp89917ko0.cloudfront.net/v--3e3a6f7dbcc9/common--theme/base/css/style.css"
+      "//d3g0gp89917ko0.cloudfront.net/v--3e3a6f7dbcc9/common--theme/base/css/style.css",
+      false
     );
   }
 
