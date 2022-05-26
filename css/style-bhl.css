@@ -172,8 +172,10 @@ body {
   display: grid;
   grid-template-rows: repeat(auto-fit, minmax(1.3125rem, 1fr));
   margin: 0.5rem 0.5rem 0 0;
+  padding: 0;
   border: 0;
   background: rgb(var(--sideblock-bg-color));
+  box-shadow: inherit;
   font-family: var(--UI-font), var(--header-font);
   direction: ltr;
 }
@@ -235,7 +237,7 @@ body {
   justify-content: flex-start;
   height: 1.5em;
   margin: 0;
-  padding: 0 0.6em;
+  padding: 0 1em;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
     color 150ms cubic-bezier(0.4, 0, 0.2, 1),
     font-weight 200ms cubic-bezier(0.4, 0, 0.2, 1),
