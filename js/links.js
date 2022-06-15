@@ -100,7 +100,7 @@ function addTranslationLink(pageUrl, branchName, branchLang, isOriginal) {
   var bullet = document.createElement("img");
   bullet.setAttribute(
     "src",
-    "//sigma9.zokhoi.com/cn/img/default.png"
+    "//sigma9.scpwikicn.com/cn/img/default.png"
   );
   bullet.setAttribute("alt", "default.png");
   bullet.classList.add("image");
