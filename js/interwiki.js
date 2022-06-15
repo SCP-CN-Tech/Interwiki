@@ -15,7 +15,7 @@ addEventListener("DOMContentLoaded", function () {
   var preventWikidotBaseStyle = getQueryString(
     location.search,
     "preventWikidotBaseStyle"
-  );
+  ) || "true";
 
   createInterwiki(community, pagename, lang, type, preventWikidotBaseStyle);
 
