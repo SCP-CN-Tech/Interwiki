@@ -41,7 +41,7 @@ body {
 .side-block div.menu-item a:hover {
   text-decoration: underline;
 }
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
   .side-block {
     background: #333;
   }
