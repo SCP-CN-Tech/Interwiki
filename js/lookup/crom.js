@@ -145,8 +145,14 @@ function parseTranslations(response, currentBranch, branches, addLink) {
  */
 function executeQuery(url, endpointIndex, callback) {
   var request = new XMLHttpRequest();
-  request.open("POST", apiList[endpointIndex], true);
-  request.setRequestHeader("Content-Type", "application/json");
+  var requestUrl =
+    apiList[endpointIndex] +
+    "?query=" +
+    encodeURIComponent(query) +
+    "&variables=" +
+    encodeURIComponent(JSON.stringify({ url: url }));
+  request.open("GET", requestUrl, true);
+  request.setRequestHeader("Accept", "application/json");
   request.addEventListener("readystatechange", function () {
     if (request.readyState === XMLHttpRequest.DONE) {
       try {
@@ -169,5 +175,5 @@ function executeQuery(url, endpointIndex, callback) {
       }
     }
   });
-  request.send(JSON.stringify({ query: query, variables: { url: url } }));
+  request.send();
 }
