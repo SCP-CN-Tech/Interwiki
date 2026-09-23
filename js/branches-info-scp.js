@@ -111,4 +111,11 @@ export var scpBranches = {
     id: "836589",
     category: "",
   },
+  id: {
+    name: "Bahasa Indonesia",
+    head: "Dalam bahasa lain",
+    url: "https://scp-id.wikidot.com/",
+    id: "4416372",
+    category: "",
+  },
 };
